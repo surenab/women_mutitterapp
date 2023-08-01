@@ -17,6 +17,7 @@
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 
+<<<<<<< HEAD:mutitterapp/accounts/templates/registration/login.html
 			<div class="signup">
 				<form>
                     {% csrf_token %}
@@ -31,12 +32,28 @@
                 
 			</div> {% endcomment %}
 
+=======
+>>>>>>> main:mutitterapp/accounts/templates/signup_login.html
 			<div class="login">
 				<form>
 					<label for="chk" aria-hidden="true">Login</label>
 					<input type="email" name="email" placeholder="Email" required="">
 					<input type="password" name="pswd" placeholder="Password" required="">
 					<button>Login</button>
+				</form>
+			</div>
+
+			<div class="signup">
+				<form>
+					<label for="chk" aria-hidden="true">Signup</label>
+					<input type="text" name="txt" placeholder="User name" required="">
+					<input type="text" name="txt" placeholder="First name" required="">
+					<input type="text" name="txt" placeholder="Last name" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<input type="password" name="pswd" placeholder="Confirm Password" required="">
+					<button>Sign up</button>
+					
 				</form>
 			</div>
 	</div>
