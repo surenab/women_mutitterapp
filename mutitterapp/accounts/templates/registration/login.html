@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
 <body>
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
@@ -19,14 +19,17 @@
 
 			<div class="signup">
 				<form>
+                    {% csrf_token %}
 					<label for="chk" aria-hidden="true">Sign up</label>
 					<input type="text" name="txt" placeholder="User name" required="">
 					<input type="email" name="email" placeholder="Email" required="">
 					<input type="password" name="pswd" placeholder="Password" required="">
-					<input type="password" name="pswd" placeholder="Confirm Password" required="">
-					<button>Sign up</button>
+					<input type="password" name="pswd" placeholder="Confirm Password" required=""> 
+                    
+					<button>Register</button> 
 				</form>
-			</div>
+                
+			</div> {% endcomment %}
 
 			<div class="login">
 				<form>

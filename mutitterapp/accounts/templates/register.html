@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+	{% comment %} <div class="main">  	 {% endcomment %}
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form method = "POST">
+                    {% csrf_token %} 
+					{% comment %} <label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" name="txt" placeholder="User name" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<input type="password" name="pswd" placeholder="Confirm Password" required="">  {% endcomment %}
+                    {{form}} 
+					<button>Register</button>
+				</form>
+                
+			</div>
+         
+</body> 
+</html>
