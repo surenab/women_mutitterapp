@@ -27,14 +27,15 @@
 			</div>
 
 			<div class="signup">
-				<form>
+				<form method = "POST">
+					{% csrf_token %}
 					<label for="chk" aria-hidden="true">Signup</label>
-					<input type="text" name="txt" placeholder="User name" required="">
-					<input type="text" name="txt" placeholder="First name" required="">
-					<input type="text" name="txt" placeholder="Last name" required="">
+					<input type="text" name="username" placeholder="Username" required="">
+					<input type="text" name="first_name" placeholder="First name" required="">
+					<input type="text" name="last_name" placeholder="Last name" required="">
 					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<input type="password" name="pswd" placeholder="Confirm Password" required="">
+					<input type="password" name="password1" placeholder="Password" required="">
+					<input type="password" name="password2" placeholder="Confirm Password" required="">
 					<button>Sign up</button>
 					
 				</form>
