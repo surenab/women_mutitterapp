@@ -10,9 +10,7 @@ from django.urls import reverse_lazy
 
 def home(request):
     cacklings = Cackling.objects.all()
-
-    return render(
-        request=request, template_name="home.html", context={"cacklings": cacklings}
+    return render(request=request, template_name="homepage.html", context={"cacklings": cacklings}
     )
 
 

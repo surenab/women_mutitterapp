@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cackling - Share Your Klings</title>
+        <link rel="stylesheet" href="{% static 'styles_homepage.css' %}">   
+    </head>
+    <body>
+        <header>
+            <h1>Cackling</h1>
+            <nav>
+                <ul>
+                {% if request.user.is_authenticated %}
+                <p> User logged by {{ request.user.email}} email</p>
+                <li><a class = "login-logout" href="{% url "logout" %}" id="logoutBtn">Logout</a></li>
+                {% else %}
+                <a href="{% url "login" %}">Log In</a>
+                {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="cackleSection">
+                {% if request.user.is_authenticated %}
+                <button id="cackleBtn" type="button"><a href="{% url "create_cackling" %}">Make a Kling</a></button>
+                {% endif %}
+            </section>
+            <section id="cackleSection" style="display:none;">
+                <textarea id="cackleInput" placeholder="Share your klings..."></textarea>
+                <button id="cackleBtn">Cackle</button>
+            </section>
+            <section id="klingContainer">
+                <h2>Latest Klings</h2>
+                <ul id="klingList">
+                <!-- Sample kling data -->
+                {% for cackling in cacklings %}
+                    <li>
+                    <div class="kling-details">
+                        <img src="*" alt="User 1" class="user-avatar">
+                        <div>
+                        <span class="username">{{cackling.user}}</span>
+                        <span class="kling-timestamp">{{cackling.submit_date}}</span>
+                        </div>
+                    </div>
+                    <h3 class="kling-title">{{cackling.title}}</h3>
+                    <span class="kling-category">{{cackling.category}}</span>
+                    <p class="kling-text">{{cackling.text}}</p>
+                    </li>
+                {% endfor%}
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Cackling. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
