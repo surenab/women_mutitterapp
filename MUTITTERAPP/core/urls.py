@@ -1,8 +1,8 @@
-from django.urls import path, include
-from .views import home, CreateCackling
+from django.urls import path
+from .views import home, CreateKling
 
 
 urlpatterns = [
     path("", home, name="home"),
-    path("create-cackling", CreateCackling.as_view(), name="create_cackling"),
+    path("create-kling", CreateKling.as_view(), name="create_kling"),
 ]

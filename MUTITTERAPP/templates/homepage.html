@@ -24,29 +24,29 @@
         <main>
             <section id="cackleSection">
                 {% if request.user.is_authenticated %}
-                <button id="cackleBtn" type="button"><a href="{% url "create_cackling" %}">Make a Kling</a></button>
+                <button id="cackleBtn" type="button"><a href="{% url "create_kling" %}">Make a Kling</a></button>
                 {% endif %}
             </section>
             <section id="cackleSection" style="display:none;">
                 <textarea id="cackleInput" placeholder="Share your klings..."></textarea>
-                <button id="cackleBtn">Cackle</button>
+                <button id="cackleBtn">Kling</button>
             </section>
             <section id="klingContainer">
                 <h2>Latest Klings</h2>
                 <ul id="klingList">
                 <!-- Sample kling data -->
-                {% for cackling in cacklings %}
+                {% for kling in klings %}
                     <li>
                     <div class="kling-details">
                         <img src="*" alt="User 1" class="user-avatar">
                         <div>
-                        <span class="username">{{cackling.user}}</span>
-                        <span class="kling-timestamp">{{cackling.submit_date}}</span>
+                        <span class="username">{{kling.user}}</span>
+                        <span class="kling-timestamp">{{kling.created_on|timesince}} ago</span>
                         </div>
                     </div>
-                    <h3 class="kling-title">{{cackling.title}}</h3>
-                    <span class="kling-category">{{cackling.category}}</span>
-                    <p class="kling-text">{{cackling.text}}</p>
+                    <h3 class="kling-title">{{kling.title}}</h3>
+                    <span class="kling-category">{{kling.category}}</span>
+                    <p class="kling-text">{{kling.text}}</p>
                     </li>
                 {% endfor%}
             </section>
