@@ -1,26 +1,28 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" >
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cackling - Create your Kling</title>
-        <link rel="stylesheet" href="{% static 'styles_kling_creation.css' %}">  
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cackling - Create your Kling</title>
+    <link rel="stylesheet" href="{% static 'css/styles_kling_creation.css' %}">
+</head>
+<body>
+    <div class="user-info">
         {% if request.user.is_authenticated %}
-        <p>User logged by {{ request.user.email}} email</p>
-        <button type="button"><a href="{% url "logout" %}">Log Out</a></button>
+        <p>User logged in by {{ request.user.email }} email</p>
+        <a href="{% url 'logout' %}">Log Out</a>
         {% else %}
-        <a href="{% url "login" %}">Log In</a>
+        <a href="{% url 'login' %}">Log In</a>
         {% endif %}
-        <p>Cackling - Create your Kling</p>
-        <form method = "POST">
+    </div>
+    <div class="kling-container">
+        <h1 class="kling-title">Cackling - Create your Kling</h1>
+        <form class="kling-form" method="POST">
             {% csrf_token %}
-            {{form}}<br><br><br>
-        <button>Submit</button>
-        
+            {{ form.as_p }}
+            <button type="submit" >Submit</button>
         </form>
-        {% comment %} <button type="button"><a href="{% url "logout" %}">Submit</a></button> {% endcomment %}
-    </body>
+    </div>
+</body>
 </html>
