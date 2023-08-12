@@ -3,6 +3,7 @@ font-family: Arial, sans-serif;
 background-color: #302b63;
 margin: 0;
 padding: 0;
+text-align: left;
 }
 
 .user-info {
@@ -25,7 +26,7 @@ border-radius: 3px;
 
 .user-info p {
 color: #fff;
-text-align: right;
+text-align: left;
 }
 
 .user-info a:hover {

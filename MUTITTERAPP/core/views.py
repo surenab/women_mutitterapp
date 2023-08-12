@@ -5,6 +5,7 @@ from .models import Kling
 from django.views.generic import CreateView
 from .forms import KlingForm
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 def home(request):
@@ -15,10 +16,11 @@ def home(request):
 
 class CreateKling(CreateView):
     form_class = KlingForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("post")
     template_name = "create_kling.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        messages.success(self.request, "Your Kling is Successfully Created!")
         return super().form_valid(form)
     
