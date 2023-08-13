@@ -2,7 +2,7 @@
 from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from .models import Kling
-from django.views.generic import CreateView,UpdateView
+from django.views.generic import CreateView,UpdateView,ListView,DetailView
 from .forms import KlingForm
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -23,8 +23,21 @@ class CreateKling(CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        messages.success(self.request,"Kling instance is deleted!")
         return super().form_valid(form)
     
+
+class MyKling(ListView):
+    model = Kling
+    context_object_name = "klings"
+    form_class = KlingForm
+    success_url = reverse_lazy("my_klings")
+
+    def get_queryset(self):
+        queryset = super(MyKling, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
+
     
 class MyKlingUpdate(LoginRequiredMixin, UpdateView):
     model = Kling
@@ -41,4 +54,11 @@ class MyKlingUpdate(LoginRequiredMixin, UpdateView):
         messages.success(self.request, "Kling instance is updated!")
         return super().form_valid(form)
 
+class MyKlingDetail( DetailView):
+    model = Kling
+    context_object_name = "kling"
     
+    def get_queryset(self):
+        queryset = super(MyKlingDetail, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
