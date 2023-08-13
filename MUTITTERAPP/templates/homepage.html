@@ -11,6 +11,11 @@
     <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
 </head>
 <body>
+    <div class="messages">
+        {% for message in messages %}
+        <div class = "alert-{{message.tags}}"> {{message}}</div>
+        {% endfor %}
+    </div>
 	<header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <div class="user-info">

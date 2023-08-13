@@ -138,13 +138,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
-
-
-# Messages Tags
 MESSAGE_TAGS = {
     constants.SUCCESS: 'alert-success',
     constants.ERROR: 'alert-danger',
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
     constants.DEBUG: 'alert-light',
-}
