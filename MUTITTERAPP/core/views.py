@@ -14,12 +14,12 @@ def home(request):
 
 class CreateKling(CreateView):
     form_class = KlingForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("post")
     template_name = "create_kling.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, "Klinged successfully")
+        messages.success(self.request, "Your Kling is Successfully Created!")
         messages.error(self.request, "Klinging failed")
         return super().form_valid(form)
     

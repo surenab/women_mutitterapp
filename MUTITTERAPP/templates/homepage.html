@@ -71,6 +71,14 @@
     <div class="container-fluid">
         <main class="tm-main">
             <p>
+                {%for message in messages%}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
                 {% if request.user.is_authenticated %}
                 <p>User logged in by {{ request.user.email }} email</p></li>
                 <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>

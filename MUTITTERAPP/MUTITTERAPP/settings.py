@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from django.urls import reverse_lazy
 from django.contrib.messages import constants
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -137,11 +138,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")
 
-MASSAGE_TAGS = {
-    constants.SUCCESS: "alert.success",
-    constants.ERROR: "alert.danger",
-    constants.WARNING: "alert.warning",
-    constants.INFO: "alert.info",
-    constants.DEBUG: "alert.dark"
-
-}
+MESSAGE_TAGS = {
+    constants.SUCCESS: 'alert-success',
+    constants.ERROR: 'alert-danger',
+    constants.INFO: 'alert-info',
+    constants.WARNING: 'alert-warning',
+    constants.DEBUG: 'alert-light',
