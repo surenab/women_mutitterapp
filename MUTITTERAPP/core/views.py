@@ -4,8 +4,18 @@ from django.views.generic import CreateView
 from .forms import KlingForm
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django_filters.views import FilterView
+from .filters import KlingFilter
 
 
+
+
+class Base(LoginRequiredMixin):
+    def get_queryset(self):
+        queryset = super(Base, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
 
 def home(request):
     klings = Kling.objects.all()
@@ -24,19 +34,27 @@ class CreateKling(CreateView):
         return super().form_valid(form)
 
 
-
-def create_kling(request):
-    if request.method == 'POST':
-        form = KlingForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
-            return redirect('home')  # Redirect to the view displaying the list of klings
-    else:
-        form = KlingForm()
+    def create_kling(request):
+        if request.method == 'POST':
+            form = KlingForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.instance.user = request.user
+                form.save()
+                return redirect('home')
+        else:
+            form = KlingForm()
+        
+        return render(request, 'post.html', {'form': form})
     
-    return render(request, 'post.html', {'form': form})
+    
+    
+    class Home(FilterView):
+        model=Kling
+        filterset_class=KlingFilter
+        template_name="homepage.html"
+       
 
-def kling_list(request):
-    klings = Kling.objects.all()
-    return render(request, 'kling_list.html', {'klings': klings})
+    class MyKlings( FilterView):
+        context_object_name="klings"
+        filterset_class=KlingFilter
+        template_name="core/kling_list.html"
