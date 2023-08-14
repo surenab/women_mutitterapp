@@ -49,11 +49,11 @@ class CreateKling(CreateView):
     
     
     class Home(FilterView):
-        model=Kling
+        context_object_name="klings"
         filterset_class=KlingFilter
         template_name="homepage.html"
        
-
+    
     class MyKlings( FilterView):
         context_object_name="klings"
         filterset_class=KlingFilter
