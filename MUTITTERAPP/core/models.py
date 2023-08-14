@@ -22,9 +22,13 @@ class Kling(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     kling_type = models.CharField(choices=KLING_TYPES, default="2", max_length=1)
     kling_category = models.CharField(choices=KLING_CATEGORY, max_length=22)
-    image = models.ImageField(upload_to="static/img", default=None, null=True, blank=True)
+    image = models.ImageField(upload_to="media", default=None, null=True, blank=True)
    
    
    
     def __str__(self) -> str:
-        return f"{self.title}"
+        return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"
+
+
+
+

@@ -36,3 +36,7 @@ class KlingForm(forms.ModelForm):
     class Meta:
         model = Kling
         fields = ("kling_category", "title", "text", "image")
+
+
+
+

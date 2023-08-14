@@ -76,11 +76,9 @@
         <h1 class="kling-title">Create your Kling</h1>
         <br>
         <div class="form-group">
-        <form  method="POST">
+        <form  method="POST" enctype="multipart/form-data" action="{% url 'create_kling' %}">
             {% csrf_token %}
-             {% comment %} {{ form.as_p }} 
-             <button class="btn btn-primary" type="submit">Submit Kling</button>
-        </form> {% endcomment %}
+        
             
            <div class="form-row">
                 <div class="col">
@@ -109,13 +107,13 @@
                 <textarea class="form-control" id="text" rows="5" name="text" placeholder="My Fairy Kling is abuot ..."></textarea>
               </div>
               <br>
-              <div class="custom-file">
+                        <div class="custom-file">
                 <input type="file" class="custom-file-input" id="customFile" name="image" >
                 <label class="custom-file-label" for="customFile">Choose file</label>
-              </div>
+              </div> 
               <br>
               <br>
-              <button class="btn btn-primary" type="submit">Submit Kling</button>
+              <button class="btn btn-primary" type="submit" value="Submit">Submit Kling</button>
         </form> 
     </div>
     </main>
