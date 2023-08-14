@@ -25,6 +25,15 @@ class CreateKling(CreateView):
         form.instance.user = self.request.user
         messages.success(self.request,"Kling instance is deleted!")
         return super().form_valid(form)
+
+class MyKling(CreateView):
+    form_class = KlingForm
+    success_url = reverse_lazy("home")
+    template_name = "my_kling.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
     
 
 class MyKling(ListView):
