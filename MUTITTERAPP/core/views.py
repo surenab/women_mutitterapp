@@ -21,3 +21,15 @@ class CreateKling(CreateView):
         messages.success(self.request, "Your Kling is Successfully Created!")
         messages.error(self.request, "Klinging failed")
         return super().form_valid(form)
+
+class MyKling(CreateView):
+    form_class = KlingForm
+    success_url = reverse_lazy("my-kling")
+    template_name = "my_kling.html"
+    pageinet_by =4
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        messages.success(self.request, "Your Kling is Successfully Created!")
+        messages.error(self.request, "Klinging failed")
+        return super().form_valid(form)
