@@ -17,10 +17,6 @@ class Base(LoginRequiredMixin):
         queryset = queryset.filter(user=self.request.user)
         return queryset
 
-def home(request):
-    klings = Kling.objects.all()
-    return render(request=request, template_name="homepage.html", context={"klings": klings})
-
 
 class CreateKling(CreateView):
     form_class = KlingForm
@@ -34,27 +30,26 @@ class CreateKling(CreateView):
         return super().form_valid(form)
 
 
-    def create_kling(request):
-        if request.method == 'POST':
-            form = KlingForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.instance.user = request.user
-                form.save()
-                return redirect('home')
-        else:
-            form = KlingForm()
-        
-        return render(request, 'post.html', {'form': form})
+class MyKling(CreateView):
+    form_class = KlingForm
+    success_url = reverse_lazy("my-kling")
+    template_name = "my_kling.html"
+    pageinet_by =4
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        messages.success(self.request, "Your Kling is Successfully Created!")
+        messages.error(self.request, "Klinging failed")
+        return super().form_valid(form)
+
+
     
     
     
-    class Home(FilterView):
-        context_object_name="klings"
-        filterset_class=KlingFilter
-        template_name="homepage.html"
+class Home(FilterView):
+    context_object_name="klings"
+    filterset_class=KlingFilter
+    template_name="homepage.html"
        
     
-    class MyKlings( FilterView):
-        context_object_name="klings"
-        filterset_class=KlingFilter
-        template_name="core/kling_list.html"
+   
