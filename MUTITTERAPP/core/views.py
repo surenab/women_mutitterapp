@@ -1,19 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Kling
 from django.views.generic import CreateView
 from .forms import KlingForm
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django_filters.views import FilterView
+from .filters import KlingFilter
 
 
-def home(request):
-    klings = Kling.objects.all()
-    return render(request=request, template_name="homepage.html", context={"klings": klings})
+
+
+class Base(LoginRequiredMixin):
+    def get_queryset(self):
+        queryset = super(Base, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
 
 
 class CreateKling(CreateView):
     form_class = KlingForm
-    success_url = reverse_lazy("post")
+    success_url = reverse_lazy("home")
     template_name = "create_kling.html"
 
     def form_valid(self, form):
@@ -21,6 +28,7 @@ class CreateKling(CreateView):
         messages.success(self.request, "Your Kling is Successfully Created!")
         messages.error(self.request, "Klinging failed")
         return super().form_valid(form)
+
 
 class MyKling(CreateView):
     form_class = KlingForm
@@ -33,3 +41,15 @@ class MyKling(CreateView):
         messages.success(self.request, "Your Kling is Successfully Created!")
         messages.error(self.request, "Klinging failed")
         return super().form_valid(form)
+
+
+    
+    
+    
+class Home(FilterView):
+    context_object_name="klings"
+    filterset_class=KlingFilter
+    template_name="homepage.html"
+       
+    
+   
