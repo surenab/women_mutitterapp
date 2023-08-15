@@ -2,7 +2,7 @@
 from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from .models import Kling
-from django.views.generic import CreateView,UpdateView,ListView,DetailView
+from django.views.generic import CreateView,UpdateView,ListView,DetailView,DeleteView
 from .forms import KlingForm
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -62,3 +62,16 @@ class MyKlingDetail( DetailView):
         queryset = super(MyKlingDetail, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
+
+class MyKlingDelete(LoginRequiredMixin, DeleteView):
+    model = Kling
+    context_object_name = "kling"
+    success_url = reverse_lazy("my_klings")
+
+    def get_queryset(self):
+        queryset = super(MyKlingDelete, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
+
+    
+
