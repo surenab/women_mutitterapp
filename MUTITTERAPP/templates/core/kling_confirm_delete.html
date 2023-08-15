@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update KLING PAGE</title>
+    <link rel="stylesheet" href="{% static 'css/styles_kling_creation.css' %}">
+</head>
+<body>
+    <p>
+        <div class= "messages"></div>
+        {% for message in messages %}
+        <div class="alert {{message.tags}}">{{message}}</div>
+        {% endfor%}
+        {% if request.user.is_authenticated %}
+
+        <a class="btn bin-secondary" href="{% url 'home' %}">Home</a>
+        
+        <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
+        {% else %}
+        <a href="{% url 'login' %}">Log In</a></li>
+        {% endif %}
+    </p>
+    <div class="user-info">
+        {% if request.user.is_authenticated %}
+        <p>User logged in by {{ request.user.email }} email</p>
+        <a href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+        <a href="{% url 'login' %}">Log In</a>
+        {% endif %}
+    </div>
+
+<div class="kling-container">
+
+<p>KLING delete PAGE</p>
+<div class="center">
+    <form method="post" class="card">
+        {% csrf_token %}
+        <h2>Delete KLING</h2>
+        <p>Are you sure that you want to delete "{{ todo.id }}"?</p>
+        <p class="form-buttons">
+            <input type="submit" class="btn btn-primary" value="Delete" />
+            <a href="{% url 'my_klings' %}" class="btn btn-outline">Cancel</a>
+        </p>
+    </form>
+</div>
