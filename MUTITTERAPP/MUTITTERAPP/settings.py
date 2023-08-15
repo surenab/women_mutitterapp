@@ -145,3 +145,4 @@ MESSAGE_TAGS = {
     constants.WARNING: 'alert-warning',
     constants.DEBUG: 'alert-light',
 }
+

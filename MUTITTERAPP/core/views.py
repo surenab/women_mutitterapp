@@ -1,5 +1,3 @@
-# Create your views here.
-from django.forms.models import BaseModelForm
 from django.shortcuts import render
 from .models import Kling
 from django.views.generic import CreateView,UpdateView,ListView,DetailView,DeleteView
@@ -9,21 +7,19 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
 def home(request):
     klings = Kling.objects.all()
-    return render(request=request, template_name="homepage.html", context={"klings": klings}
-    )
+    return render(request=request, template_name="homepage.html", context={"klings": klings})
 
 
 class CreateKling(CreateView):
     form_class = KlingForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("post")
     template_name = "create_kling.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request,"Kling instance is deleted!")
+        messages.success(self.request,"Klinged succesfully!")
         return super().form_valid(form)
     
 
@@ -72,6 +68,4 @@ class MyKlingDelete(LoginRequiredMixin, DeleteView):
         queryset = super(MyKlingDelete, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
-
-    
 

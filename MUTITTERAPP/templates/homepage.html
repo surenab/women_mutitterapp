@@ -11,7 +11,11 @@
     <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
 </head>
 <body>
-    {% comment %} {{messages}} {% endcomment %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class = "alert-{{message.tags}}"> {{message}}</div>
+        {% endfor %}
+    </div>
 	<header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <div class="user-info">
@@ -20,7 +24,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><a class = "logo" src= "{% static 'img/logo.png' %}"> </a></div>            
+                <div class="mb-3 mx-auto tm-site-logo"><img class = "logo" src= "{% static 'img/logo.png' %}"> </img></div>            
                 <h1 class="text-center">Cackling</h1>
             </div>
             <nav class="tm-nav" id="tm-nav">            
@@ -69,10 +73,14 @@
 
             
             <p>
-                <div class= "messages"></div>
-                {% for message in messages %}
-                <div class="alert {{message.tags}}">{{message}}</div>
-                {% endfor%}
+                {%for message in messages%}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
                 {% if request.user.is_authenticated %}
 
                 <a class="btn btn-secondary" href="{% url 'my_klings' %}">My Klings</a>
