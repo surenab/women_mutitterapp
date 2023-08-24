@@ -8,6 +8,20 @@
 	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 	<script src="{% static 'js/script.js' %}"></script> 
 <body>
+	{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+	</div>
+	{% endif %}
+	{% if form.errors.username %}
+		{{ form.errors.username }}
+	{% elif form.errors.password1 %}
+		{{ form.errors.password1 }}
+	{% elif form.errors.password2 %}
+		{{ form.errors.password2 }}
+	{% endif %}
 	<div class="main">
 		<input type="checkbox" id="chk" aria-hidden="true">
 			<div class="login" id="login">
@@ -24,11 +38,14 @@
 					{% csrf_token %}
 					<label for="chk" id="signup-button" aria-hidden="true">Signup</label>
 					<input type="text" name="username" placeholder="Username" required="">
+					<p class="error"></p>
 					<input type="text" name="first_name" placeholder="First name" required="">
 					<input type="text" name="last_name" placeholder="Last name" required="">
 					<input type="email" name="email" placeholder="Email" required="">
 					<input type="password" name="password1" placeholder="Password" required="">
+					<p class="error"></p>
 					<input type="password" name="password2" placeholder="Confirm Password" required="">
+					<p class="error"></p>
 					<button>Sign up</button>
 				</form>
 			</div>

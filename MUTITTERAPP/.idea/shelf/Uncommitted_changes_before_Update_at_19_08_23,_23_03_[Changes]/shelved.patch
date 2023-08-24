@@ -1,0 +1,474 @@
+Index: templates/homepage.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% load static %}\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n\t<meta charset=\"UTF-8\">\r\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n\t<title>Cackling - Share Your Klings</title>\r\n\t<link rel=\"stylesheet\" href=\"{% static 'fontawesome/css/all.min.css' %}\"> \r\n\t<link href=\"https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\">\r\n    <link href=\"{% static 'css/bootstrap.min.css' %}\" rel=\"stylesheet\">\r\n    <link href=\"{% static 'css/templatemo-xtra-blog.css' %}\" rel=\"stylesheet\">\r\n</head>\r\n<body>\r\n    <div class=\"messages\">\r\n        {% for message in messages %}\r\n        <div class = \"alert-{{message.tags}}\"> {{message}}</div>\r\n        {% endfor %}\r\n    </div>\r\n\t<header class=\"tm-header\" id=\"tm-header\">\r\n        <div class=\"tm-header-wrapper\">\r\n            <div class=\"user-info\">\r\n            </div>\r\n            <button class=\"navbar-toggler\" type=\"button\" aria-label=\"Toggle navigation\">\r\n                <i class=\"fas fa-bars\"></i>\r\n            </button>\r\n            <div class=\"tm-site-header\">\r\n                <div class=\"mb-3 mx-auto tm-site-logo\"><a class = \"logo\" src= \"{% static 'img/logo.png' %}\"> </a></div>            \r\n                <h1 class=\"text-center\">Cackling</h1>\r\n            </div>\r\n            <nav class=\"tm-nav\" id=\"tm-nav\">            \r\n                <ul>\r\n                    <li class=\"tm-nav-item active\"><a href=\"index.html\" class=\"tm-nav-link\">\r\n                        <i class=\"fas fa-home\"></i>\r\n                        Blog Home\r\n                    </a></li>\r\n                    {% if request.user.is_authenticated %}\r\n                    <li class=\"tm-nav-item\">><a href=\"{% url \"create_kling\" %}\" class=\"tm-nav-link\">\r\n                        <i class=\"fas fa-bell\"></i>\r\n                        Make a Kling\r\n                        {% endif %}\r\n                    <li class=\"tm-nav-item\"><a href=\"post.html\" class=\"tm-nav-link\">\r\n                        <i class=\"fas fa-pen\"></i>\r\n                        Single Post\r\n                    </a></li>\r\n                    <li class=\"tm-nav-item\"><a href=\"about.html\" class=\"tm-nav-link\">\r\n                        <i class=\"fas fa-users\"></i>\r\n                        About Xtra\r\n                    </a></li>\r\n                    <li class=\"tm-nav-item\"><a href=\"contact.html\" class=\"tm-nav-link\">\r\n                        <i class=\"far fa-comments\"></i>\r\n                        Contact Us\r\n                    </a></li>\r\n                </ul>\r\n            </nav>\r\n            <div class=\"tm-mb-65\">\r\n                <a rel=\"nofollow\" href=\"https://fb.com/templatemo\" class=\"tm-social-link\">\r\n                    <i class=\"fab fa-facebook tm-social-icon\"></i>\r\n                </a>\r\n                <a href=\"https://twitter.com\" class=\"tm-social-link\">\r\n                    <i class=\"fab fa-twitter tm-social-icon\"></i>\r\n                </a>\r\n                <a href=\"https://instagram.com\" class=\"tm-social-link\">\r\n                    <i class=\"fab fa-instagram tm-social-icon\"></i>\r\n                </a>\r\n                <a href=\"https://linkedin.com\" class=\"tm-social-link\">\r\n                    <i class=\"fab fa-linkedin tm-social-icon\"></i>\r\n                </a>\r\n            </div>\r\n        </div>\r\n    </header>\r\n    <div class=\"container-fluid\">\r\n        <main class=\"tm-main\">\r\n            <p>\r\n                {%for message in messages%}\r\n                <div class=\"alert alert-{{ message.tags }} alert-dismissible fade show\" role=\"alert\">\r\n                    {{ message}}\r\n                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                </div>\r\n                {% endfor %}\r\n                {% if request.user.is_authenticated %}\r\n                <p>User logged in by {{ request.user.email }} email</p></li>\r\n                <a class=\"login-logout\" href=\"{% url 'logout' %}\" id=\"logoutBtn\">Logout</a></li>\r\n                {% else %}\r\n                <a href=\"{% url 'login' %}\">Log In</a></li>\r\n                {% endif %}\r\n            </p>\r\n            <!-- Search form -->\r\n            <div class=\"row tm-row\">\r\n                <div class=\"col-12\">\r\n                    <form method=\"GET\" class=\"form-inline tm-mb-80 tm-search-form\">                \r\n                        <input class=\"form-control tm-search-input\" name=\"query\" type=\"text\" placeholder=\"Search...\" aria-label=\"Search\">\r\n                        <button class=\"tm-search-button\" type=\"submit\">\r\n                            <i class=\"fas fa-search tm-search-icon\" aria-hidden=\"true\"></i>\r\n                        </button>                                \r\n                    </form>\r\n                </div>                \r\n            </div>            \r\n            <div class=\"row tm-row\">\r\n                {% for kling in klings %}\r\n                <article class=\"col-12 col-md-6 tm-post\">\r\n                    <hr class=\"tm-hr-primary\">\r\n                    <a href=\"post.html\" class=\"effect-lily tm-post-link tm-pt-60\">\r\n                        <div class=\" tm-post-link-inner\">\r\n                            <img src=\"{% static 'img/img-02.jpg' %}\" alt=\"Image\" class=\"img-fluid\">                            \r\n                        </div>\r\n                        <span class=\"position-absolute tm-new-badge\">New</span>\r\n                        <h2 class=\"tm-pt-30 tm-color-primary tm-post-title\">{{kling.title}}</h2>\r\n                    </a>                    \r\n                    <p class=\"tm-pt-30\">\r\n                        <a rel=\"nofollow\" href=\"https://templatemo.com/tm-553-xtra-blog\" target=\"_blank\"></a>{{kling.text}}\r\n                    </p>\r\n                    <div class=\"d-flex justify-content-between tm-pt-45\">\r\n                        <span class=\"tm-color-primary\">{{kling.category}}</span>\r\n                        <span class=\"tm-color-primary\">{{kling.created_on|timesince}} ago</span>\r\n                    </div>\r\n                    <hr>\r\n                    <div class=\"d-flex justify-content-between\">\r\n                        <span>48 comments</span>\r\n                        <span>{{kling.user}}</span>\r\n                    </div>\r\n                </article>\r\n                {% endfor%}\r\n            </div>\r\n            <div class=\"row tm-row tm-mt-100 tm-mb-75\">\r\n                <div class=\"tm-prev-next-wrapper\">\r\n                    <a href=\"#\" class=\"mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20\">Prev</a>\r\n                    <a href=\"#\" class=\"mb-2 tm-btn tm-btn-primary tm-prev-next\">Next</a>\r\n                </div>\r\n                <div class=\"tm-paging-wrapper\">\r\n                    <span class=\"d-inline-block mr-3\">Page</span>\r\n                    <nav class=\"tm-paging-nav d-inline-block\">\r\n                        <ul>\r\n                            <li class=\"tm-paging-item active\">\r\n                                <a href=\"#\" class=\"mb-2 tm-btn tm-paging-link\">1</a>\r\n                            </li>\r\n                            <li class=\"tm-paging-item\">\r\n                                <a href=\"#\" class=\"mb-2 tm-btn tm-paging-link\">2</a>\r\n                            </li>\r\n                            <li class=\"tm-paging-item\">\r\n                                <a href=\"#\" class=\"mb-2 tm-btn tm-paging-link\">3</a>\r\n                            </li>\r\n                            <li class=\"tm-paging-item\">\r\n                                <a href=\"#\" class=\"mb-2 tm-btn tm-paging-link\">4</a>\r\n                            </li>\r\n                        </ul>\r\n                    </nav>\r\n                </div>                \r\n            </div>            \r\n            <footer class=\"row tm-row\">\r\n                <hr class=\"col-12\">\r\n                <div class=\"col-md-6 col-12 tm-color-gray\">\r\n                    Design: <a rel=\"nofollow\" target=\"_parent\" href=\"https://templatemo.com\" class=\"tm-external-link\">TemplateMo</a>\r\n                </div>\r\n                <div class=\"col-md-6 col-12 tm-color-gray tm-copyright\">\r\n                    Copyright 2020 Xtra Blog Company Co. Ltd.\r\n                </div>\r\n            </footer>\r\n        </main>\r\n    </div>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/homepage.html b/templates/homepage.html
+--- a/templates/homepage.html	
++++ b/templates/homepage.html	
+@@ -1,91 +1,6 @@
++{% extends 'base_core.html' %}
++{% block bodycontent %}
+ {% load static %}
+-<!DOCTYPE html>
+-<html lang="en">
+-<head>
+-	<meta charset="UTF-8">
+-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+-	<title>Cackling - Share Your Klings</title>
+-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> 
+-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+-    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+-</head>
+-<body>
+-    <div class="messages">
+-        {% for message in messages %}
+-        <div class = "alert-{{message.tags}}"> {{message}}</div>
+-        {% endfor %}
+-    </div>
+-	<header class="tm-header" id="tm-header">
+-        <div class="tm-header-wrapper">
+-            <div class="user-info">
+-            </div>
+-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+-                <i class="fas fa-bars"></i>
+-            </button>
+-            <div class="tm-site-header">
+-                <div class="mb-3 mx-auto tm-site-logo"><a class = "logo" src= "{% static 'img/logo.png' %}"> </a></div>            
+-                <h1 class="text-center">Cackling</h1>
+-            </div>
+-            <nav class="tm-nav" id="tm-nav">            
+-                <ul>
+-                    <li class="tm-nav-item active"><a href="index.html" class="tm-nav-link">
+-                        <i class="fas fa-home"></i>
+-                        Blog Home
+-                    </a></li>
+-                    {% if request.user.is_authenticated %}
+-                    <li class="tm-nav-item">><a href="{% url "create_kling" %}" class="tm-nav-link">
+-                        <i class="fas fa-bell"></i>
+-                        Make a Kling
+-                        {% endif %}
+-                    <li class="tm-nav-item"><a href="post.html" class="tm-nav-link">
+-                        <i class="fas fa-pen"></i>
+-                        Single Post
+-                    </a></li>
+-                    <li class="tm-nav-item"><a href="about.html" class="tm-nav-link">
+-                        <i class="fas fa-users"></i>
+-                        About Xtra
+-                    </a></li>
+-                    <li class="tm-nav-item"><a href="contact.html" class="tm-nav-link">
+-                        <i class="far fa-comments"></i>
+-                        Contact Us
+-                    </a></li>
+-                </ul>
+-            </nav>
+-            <div class="tm-mb-65">
+-                <a rel="nofollow" href="https://fb.com/templatemo" class="tm-social-link">
+-                    <i class="fab fa-facebook tm-social-icon"></i>
+-                </a>
+-                <a href="https://twitter.com" class="tm-social-link">
+-                    <i class="fab fa-twitter tm-social-icon"></i>
+-                </a>
+-                <a href="https://instagram.com" class="tm-social-link">
+-                    <i class="fab fa-instagram tm-social-icon"></i>
+-                </a>
+-                <a href="https://linkedin.com" class="tm-social-link">
+-                    <i class="fab fa-linkedin tm-social-icon"></i>
+-                </a>
+-            </div>
+-        </div>
+-    </header>
+-    <div class="container-fluid">
+-        <main class="tm-main">
+-            <p>
+-                {%for message in messages%}
+-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+-                    {{ message}}
+-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+-                        <span aria-hidden="true">&times;</span>
+-                    </button>
+-                </div>
+-                {% endfor %}
+-                {% if request.user.is_authenticated %}
+-                <p>User logged in by {{ request.user.email }} email</p></li>
+-                <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
+-                {% else %}
+-                <a href="{% url 'login' %}">Log In</a></li>
+-                {% endif %}
+-            </p>
+             <!-- Search form -->
+             <div class="row tm-row">
+                 <div class="col-12">
+@@ -94,7 +9,7 @@
+                         <button class="tm-search-button" type="submit">
+                             <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                         </button>                                
+-                    </form>
++                    </form> 
+                 </div>                
+             </div>            
+             <div class="row tm-row">
+@@ -157,7 +72,4 @@
+                     Copyright 2020 Xtra Blog Company Co. Ltd.
+                 </div>
+             </footer>
+-        </main>
+-    </div>
+-</body>
+-</html>
+\ No newline at end of file
++{% endblock %}
+\ No newline at end of file
+Index: templates/base_core.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/base_core.html b/templates/base_core.html
+new file mode 100644
+--- /dev/null	
++++ b/templates/base_core.html	
+@@ -0,0 +1,94 @@
++{% load static %}
++<!DOCTYPE html>
++<html lang="en">
++<head>
++	<meta charset="UTF-8">
++	<meta name="viewport" content="width=device-width, initial-scale=1.0">
++	<title>Cackling - Share Your Klings</title>
++	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> 
++	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
++    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
++    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
++</head>
++<body>
++    {% if messages %}
++    <div class="messages">
++        {% for message in messages %}
++        <div class = "alert-{{message.tags}}"> {{message}}</div>
++        {% endfor %}
++    </div>
++    {% endif %}
++	<header class="tm-header" id="tm-header">
++        <div class="tm-header-wrapper">
++            <div class="user-info">
++            </div>
++            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
++                <i class="fas fa-bars"></i>
++            </button>
++            <div class="tm-site-header">
++                <div class="mb-3 mx-auto tm-site-logo"><img class = "logo" src= "{% static 'img/logo.png' %}"> </img></div>            
++            </div>
++            <nav class="tm-nav" id="tm-nav">            
++                <ul>
++                    <li class="tm-nav-item active"><a href="{% url 'home' %}" class="tm-nav-link">
++                        <i class="fas fa-home"></i>
++                        Blog Home
++                        </a>
++                    </li>
++                    {% if request.user.is_authenticated %}
++                    <li class="tm-nav-item"><a href="{% url 'create_kling' %}" class="tm-nav-link">
++                        <i class="fas fa-bell"></i>
++                        Make a Kling
++                        {% endif %}
++                    <li class="tm-nav-item"><a href="about.html" class="tm-nav-link">
++                        <i class="fas fa-users"></i>
++                        About Us
++                    </a></li>
++                    <li class="tm-nav-item"><a href="contact.html" class="tm-nav-link">
++                        <i class="far fa-comments"></i>
++                        Contact Us
++                    </a></li>
++                </ul>
++            </nav>
++            <div class="tm-mb-65">
++                <a rel="nofollow" href="https://fb.com/templatemo" class="tm-social-link">
++                    <i class="fab fa-facebook tm-social-icon"></i>
++                </a>
++                <a href="https://twitter.com" class="tm-social-link">
++                    <i class="fab fa-twitter tm-social-icon"></i>
++                </a>
++                <a href="https://instagram.com" class="tm-social-link">
++                    <i class="fab fa-instagram tm-social-icon"></i>
++                </a>
++                <a href="https://linkedin.com" class="tm-social-link">
++                    <i class="fab fa-linkedin tm-social-icon"></i>
++                </a>
++            </div>
++            <p class="tm-mb-80 pr-5 text-white">
++                Make a kling, have a fun!
++            </p>
++        </div>
++    </header>
++    <div class="container-fluid">
++        <main class="tm-main">
++            <p>
++                {%for message in messages%}
++                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
++                    {{ message}}
++                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
++                        <span aria-hidden="true">&times;</span>
++                    </button>
++                </div>
++                {% endfor %}
++                {% if request.user.is_authenticated %}
++                <p>User logged in by {{ request.user.email }} email</p></li>
++                <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
++                {% else %}
++                <a href="{% url 'login' %}">Log In</a></li>
++                {% endif %}
++            </p>
++            {% block bodycontent %} {% endblock %}
++        </main>
++    </div>
++</body>
++</html>
+\ No newline at end of file
+Index: templates/base_for_register_login.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% load static %}\n<!DOCTYPE html>\n<html lang=\"en\" >\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title> Mutitterapp Sign up / Login </title>\n\t<link rel=\"stylesheet\" href=\"{% static 'css/style.css' %}\" />\n\t<link href=\"https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap\" rel=\"stylesheet\">\n\t<script src=\"{% static 'js/script.js' %}\"></script> \n<body>\n\t<div class=\"main\">\n\t\t<input type=\"checkbox\" id=\"chk\" aria-hidden=\"true\">\n\t\t\t<div class=\"login\" id=\"login\">\n\t\t\t\t<form method = \"POST\">\n\t\t\t\t\t{% csrf_token %}\n\t\t\t\t\t<label for=\"chk\" id=\"login-button\" aria-hidden=\"true\">Login</label>\n\t\t\t\t\t<input type=\"text\" name=\"username\" placeholder=\"Username\" required=\"\">\n\t\t\t\t\t<input type=\"password\" name=\"password\" placeholder=\"Password\" required=\"\">\n\t\t\t\t\t<button>Login</button>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t\t<div class=\"signup\" id=\"signup\">\n\t\t\t\t<form method = \"POST\">\n\t\t\t\t\t{% csrf_token %}\n\t\t\t\t\t<label for=\"chk\" id=\"signup-button\" aria-hidden=\"true\">Signup</label>\n\t\t\t\t\t<input type=\"text\" name=\"username\" placeholder=\"Username\" required=\"\">\n\t\t\t\t\t<input type=\"text\" name=\"first_name\" placeholder=\"First name\" required=\"\">\n\t\t\t\t\t<input type=\"text\" name=\"last_name\" placeholder=\"Last name\" required=\"\">\n\t\t\t\t\t<input type=\"email\" name=\"email\" placeholder=\"Email\" required=\"\">\n\t\t\t\t\t<input type=\"password\" name=\"password1\" placeholder=\"Password\" required=\"\">\n\t\t\t\t\t<input type=\"password\" name=\"password2\" placeholder=\"Confirm Password\" required=\"\">\n\t\t\t\t\t<button>Sign up</button>\n\t\t\t\t</form>\n\t\t\t</div>\n\t</div>\n</body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/base_for_register_login.html b/templates/base_for_register_login.html
+--- a/templates/base_for_register_login.html	
++++ b/templates/base_for_register_login.html	
+@@ -8,6 +8,15 @@
+ 	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+ 	<script src="{% static 'js/script.js' %}"></script> 
+ <body>
++	{% if messages %}
++		<div class="alert alert-error" role="alert">
++			{% for message in messages %}
++			{% if forloop.first %}
++			<div class = "alert-{{message.tags}}"> {{message}}</div>
++			{% endif %}
++			{% endfor %}
++		</div>
++	{% endif %}
+ 	<div class="main">
+ 		<input type="checkbox" id="chk" aria-hidden="true">
+ 			<div class="login" id="login">
+Index: core/forms.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from typing import Any\nfrom django import forms\nfrom .models import Kling\nfrom django.utils import timezone\n\n\nclass KlingForm(forms.ModelForm):\n    \"\"\"Class representing a Kling\"\"\"\n    KLING_TYPES = ((\"1\", \"Hot\"), (\"2\", \"Standard\"), (\"3\", \"Relaxing\"))\n    KLING_CATEGORY = (\n        (\"Life and Love\", \"Life and Love\"),\n        (\"Travel and Adventure\", \"Travel and Adventure\"),\n        (\"Art and Music\", \"Art and Music\"),\n        (\"Nature\", \"Nature\"),\n        (\"Food and Wellness\", \"Food and Wellness\"),\n        (\"Careers\", \"Careers\"),\n        (\"Science and Technology\", \"Science and Technology\"),\n        (\"Other\", \"Other\"),\n    )\n    kling_type = forms.ChoiceField(choices=KLING_TYPES)\n    created_on = forms.DateTimeField(widget=forms.SelectDateWidget())\n    title = forms.CharField(\n         widget=forms.TextInput()\n    )\n    text = forms.CharField(\n        widget=forms.Textarea()\n    )\n    kling_category = forms.ChoiceField(\n        choices=KLING_CATEGORY, widget=forms.Select()\n    )\n    image = forms.ImageField()\n    kling_types = forms.ChoiceField(choices=KLING_TYPES)\n    \n    \"\"\"Docstring fot Meta.\"\"\"\n\n    class Meta:\n        model = Kling\n        fields = (\"kling_category\", \"title\", \"text\", \"image\")\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/forms.py b/core/forms.py
+--- a/core/forms.py	
++++ b/core/forms.py	
+@@ -5,7 +5,6 @@
+ 
+ 
+ class KlingForm(forms.ModelForm):
+-    """Class representing a Kling"""
+     KLING_TYPES = (("1", "Hot"), ("2", "Standard"), ("3", "Relaxing"))
+     KLING_CATEGORY = (
+         ("Life and Love", "Life and Love"),
+@@ -20,7 +19,7 @@
+     kling_type = forms.ChoiceField(choices=KLING_TYPES)
+     created_on = forms.DateTimeField(widget=forms.SelectDateWidget())
+     title = forms.CharField(
+-         widget=forms.TextInput()
++        widget=forms.TextInput()
+     )
+     text = forms.CharField(
+         widget=forms.Textarea()
+@@ -31,8 +30,6 @@
+     image = forms.ImageField()
+     kling_types = forms.ChoiceField(choices=KLING_TYPES)
+     
+-    """Docstring fot Meta."""
+-
+     class Meta:
+         model = Kling
+         fields = ("kling_category", "title", "text", "image")
+Index: templates/create_kling.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% load static %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t<title>Cackling - Share Your Klings</title>\n\t<link rel=\"stylesheet\" href=\"{% static 'fontawesome/css/all.min.css' %}\"> \n\t<link href=\"https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\">\n    <link href=\"{% static 'css/bootstrap.min.css' %}\" rel=\"stylesheet\">\n    <link href=\"{% static 'css/templatemo-xtra-blog.css' %}\" rel=\"stylesheet\">\n</head>\n<body>\n    <header class=\"tm-header\" id=\"tm-header\">\n        <div class=\"tm-header-wrapper\">\n            <div class=\"user-info\">\n            </div>\n            <button class=\"navbar-toggler\" type=\"button\" aria-label=\"Toggle navigation\">\n                <i class=\"fas fa-bars\"></i>\n            </button>\n            <div class=\"tm-site-header\">\n                <div class=\"mb-3 mx-auto tm-site-logo\"><a class = \"logo\" src= \"{% static 'img/logo.png' %}\"> </a></div>            \n                <h1 class=\"text-center\">Cackling</h1>\n            </div>\n            <nav class=\"tm-nav\" id=\"tm-nav\">            \n                <ul>\n                    <li class=\"tm-nav-item active\"><a href=\"index.html\" class=\"tm-nav-link\">\n                        <i class=\"fas fa-home\"></i>\n                        Blog Home\n                    </a></li>\n                    {% if request.user.is_authenticated %}\n                    <li class=\"tm-nav-item\"><a href=\"{% url \"create_kling\" %}\" class=\"tm-nav-link\">\n                        <i class=\"fas fa-bell\"></i>\n                        Make a Kling\n                        {% endif %}\n                    <li class=\"tm-nav-item\"><a href=\"post.html\" class=\"tm-nav-link\">\n                        <i class=\"fas fa-pen\"></i>\n                        Single Post\n                    </a></li>\n                    <li class=\"tm-nav-item\"><a href=\"about.html\" class=\"tm-nav-link\">\n                        <i class=\"fas fa-users\"></i>\n                        About Xtra\n                    </a></li>\n                    <li class=\"tm-nav-item\"><a href=\"contact.html\" class=\"tm-nav-link\">\n                        <i class=\"far fa-comments\"></i>\n                        Contact Us\n                    </a></li>\n                </ul>\n            </nav>\n            <div class=\"tm-mb-65\">\n                <a rel=\"nofollow\" href=\"https://fb.com/templatemo\" class=\"tm-social-link\">\n                    <i class=\"fab fa-facebook tm-social-icon\"></i>\n                </a>\n                <a href=\"https://twitter.com\" class=\"tm-social-link\">\n                    <i class=\"fab fa-twitter tm-social-icon\"></i>\n                </a>\n                <a href=\"https://instagram.com\" class=\"tm-social-link\">\n                    <i class=\"fab fa-instagram tm-social-icon\"></i>\n                </a>\n                <a href=\"https://linkedin.com\" class=\"tm-social-link\">\n                    <i class=\"fab fa-linkedin tm-social-icon\"></i>\n                </a>\n            </div>\n        </div>\n    </header>  \n      <div class=\"container-fluid\">\n        <main class=\"tm-main\">\n          <div class=\"user-info\">\n        {% if request.user.is_authenticated %}\n        <p>User logged in by {{ request.user.email }} email</p>\n        <a href=\"{% url 'logout' %}\">Log Out</a>\n        {% else %}\n        <a href=\"{% url 'login' %}\">Log In</a>\n        {% endif %}\n    \n        <h1 class=\"kling-title\">Create your Kling</h1>\n        <br>\n        <div class=\"form-group\">\n        <form  method=\"POST\">\n            {% csrf_token %}\n             {% comment %} {{ form.as_p }} \n             <button class=\"btn btn-primary\" type=\"submit\">Submit Kling</button>\n        </form> {% endcomment %}\n            \n           <div class=\"form-row\">\n                <div class=\"col\">\n                    <label for=\"kling_category\">Choose Your Kling's Category</label>\n                    <select class=\"form-control form-control-lg\" id = \"kling_category\" name=\"kling_category\">\n                <option>Life and Love</option>\n                <option>Travel and Adventure</option>\n                <option>Art and Music</option>\n                <option>Nature</option>\n                <option>Food and Wellness</option>\n                <option>Careers</option>\n                <option>Science and Technology</option>\n                <option>Other</option>\n              </select>\n                  \n                </div>\n                \n                <div class=\"col\">\n                    <label for=\"kling_title\"> Your Kling's Title</label>\n                  <input class=\"form-control form-control-lg\" if =\"kling_title\" name=\"title\" type=\"text\" placeholder=\"My Fairy Kling\">\n                </div>\n              </div>\n            <br>\n              <div class=\"form-group\">\n                <label for=\"text\">Your Kling Here</label>\n                <textarea class=\"form-control\" id=\"text\" rows=\"5\" name=\"text\" placeholder=\"My Fairy Kling is abuot ...\"></textarea>\n              </div>\n              <br>\n              <div class=\"custom-file\">\n                <input type=\"file\" class=\"custom-file-input\" id=\"customFile\" name=\"image\" >\n                <label class=\"custom-file-label\" for=\"customFile\">Choose file</label>\n              </div>\n              <br>\n              <br>\n              <button class=\"btn btn-primary\" type=\"submit\">Submit Kling</button>\n        </form> \n    </div>\n    </main>\n    </div>\n</div>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/create_kling.html b/templates/create_kling.html
+--- a/templates/create_kling.html	
++++ b/templates/create_kling.html	
+@@ -1,88 +1,16 @@
++{% extends 'base_core.html' %}
++{% block bodycontent %}
+ {% load static %}
+-<!DOCTYPE html>
+-<html lang="en">
+-<head>
+-	<meta charset="UTF-8">
+-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+-	<title>Cackling - Share Your Klings</title>
+-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> 
+-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+-    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
+-</head>
+-<body>
+-    <header class="tm-header" id="tm-header">
+-        <div class="tm-header-wrapper">
+-            <div class="user-info">
+-            </div>
+-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+-                <i class="fas fa-bars"></i>
+-            </button>
+-            <div class="tm-site-header">
+-                <div class="mb-3 mx-auto tm-site-logo"><a class = "logo" src= "{% static 'img/logo.png' %}"> </a></div>            
+-                <h1 class="text-center">Cackling</h1>
+-            </div>
+-            <nav class="tm-nav" id="tm-nav">            
+-                <ul>
+-                    <li class="tm-nav-item active"><a href="index.html" class="tm-nav-link">
+-                        <i class="fas fa-home"></i>
+-                        Blog Home
+-                    </a></li>
+-                    {% if request.user.is_authenticated %}
+-                    <li class="tm-nav-item"><a href="{% url "create_kling" %}" class="tm-nav-link">
+-                        <i class="fas fa-bell"></i>
+-                        Make a Kling
+-                        {% endif %}
+-                    <li class="tm-nav-item"><a href="post.html" class="tm-nav-link">
+-                        <i class="fas fa-pen"></i>
+-                        Single Post
+-                    </a></li>
+-                    <li class="tm-nav-item"><a href="about.html" class="tm-nav-link">
+-                        <i class="fas fa-users"></i>
+-                        About Xtra
+-                    </a></li>
+-                    <li class="tm-nav-item"><a href="contact.html" class="tm-nav-link">
+-                        <i class="far fa-comments"></i>
+-                        Contact Us
+-                    </a></li>
+-                </ul>
+-            </nav>
+-            <div class="tm-mb-65">
+-                <a rel="nofollow" href="https://fb.com/templatemo" class="tm-social-link">
+-                    <i class="fab fa-facebook tm-social-icon"></i>
+-                </a>
+-                <a href="https://twitter.com" class="tm-social-link">
+-                    <i class="fab fa-twitter tm-social-icon"></i>
+-                </a>
+-                <a href="https://instagram.com" class="tm-social-link">
+-                    <i class="fab fa-instagram tm-social-icon"></i>
+-                </a>
+-                <a href="https://linkedin.com" class="tm-social-link">
+-                    <i class="fab fa-linkedin tm-social-icon"></i>
+-                </a>
+-            </div>
+-        </div>
+-    </header>  
+-      <div class="container-fluid">
+-        <main class="tm-main">
+-          <div class="user-info">
+-        {% if request.user.is_authenticated %}
+-        <p>User logged in by {{ request.user.email }} email</p>
+-        <a href="{% url 'logout' %}">Log Out</a>
+-        {% else %}
+-        <a href="{% url 'login' %}">Log In</a>
+-        {% endif %}
+-    
+         <h1 class="kling-title">Create your Kling</h1>
+         <br>
+         <div class="form-group">
+         <form  method="POST">
+             {% csrf_token %}
+-             {% comment %} {{ form.as_p }} 
+-             <button class="btn btn-primary" type="submit">Submit Kling</button>
++            {% comment %} {{ form.as_p }} 
++            <button class="btn btn-primary" type="submit">Submit Kling</button>
+         </form> {% endcomment %}
+             
+-           <div class="form-row">
++            <div class="form-row">
+                 <div class="col">
+                     <label for="kling_category">Choose Your Kling's Category</label>
+                     <select class="form-control form-control-lg" id = "kling_category" name="kling_category">
+@@ -94,32 +22,27 @@
+                 <option>Careers</option>
+                 <option>Science and Technology</option>
+                 <option>Other</option>
+-              </select>
+-                  
++                    </select>
+                 </div>
+                 
+                 <div class="col">
+                     <label for="kling_title"> Your Kling's Title</label>
+-                  <input class="form-control form-control-lg" if ="kling_title" name="title" type="text" placeholder="My Fairy Kling">
++                    <input class="form-control form-control-lg" if ="kling_title" name="title" type="text" placeholder="My Fairy Kling">
+                 </div>
+-              </div>
++            </div>
+             <br>
+-              <div class="form-group">
++            <div class="form-group">
+                 <label for="text">Your Kling Here</label>
+                 <textarea class="form-control" id="text" rows="5" name="text" placeholder="My Fairy Kling is abuot ..."></textarea>
+-              </div>
+-              <br>
+-              <div class="custom-file">
++            </div>
++            <br>
++            <div class="custom-file">
+                 <input type="file" class="custom-file-input" id="customFile" name="image" >
+                 <label class="custom-file-label" for="customFile">Choose file</label>
+-              </div>
+-              <br>
+-              <br>
+-              <button class="btn btn-primary" type="submit">Submit Kling</button>
++            </div>
++            <br>
++            <br>
++            <button class="btn btn-primary" type="submit">Submit Kling</button>
+         </form> 
+     </div>
+-    </main>
+-    </div>
+-</div>
+-</body>
+-</html>
+\ No newline at end of file
++{% endblock %}
+\ No newline at end of file
+Index: accounts/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.views.generic import CreateView\nfrom django.urls import reverse_lazy\nfrom .forms import RegisterForm\n\n\nclass Register(CreateView):\n    form_class = RegisterForm\n    success_url = reverse_lazy('login')\n    template_name = \"registration/register.html\"\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/accounts/views.py b/accounts/views.py
+--- a/accounts/views.py	
++++ b/accounts/views.py	
+@@ -1,9 +1,21 @@
+ from django.views.generic import CreateView
+ from django.urls import reverse_lazy
+ from .forms import RegisterForm
++from django.contrib import messages
+ 
+ 
+ class Register(CreateView):
+     form_class = RegisterForm
+     success_url = reverse_lazy('login')
+     template_name = "registration/register.html"
++
++    def form_invalid(self, form):
++        for field, errors in form.errors.items():
++            if field == 'username':
++                messages.error(self.request, "Username is already in use.")
++            elif field == 'password2':
++                messages.error(self.request, form.error_messages['password_mismatch'])
++            elif field == 'password1':
++                messages.error(self.request, form.error_messages['password_too_simple'])
++
++        return super().form_invalid(form)
