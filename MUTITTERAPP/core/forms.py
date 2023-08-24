@@ -17,7 +17,7 @@ class KlingForm(forms.ModelForm):
         ("Science and Technology", "Science and Technology"),
         ("Other", "Other"),
     )
-    kling_type = forms.ChoiceField(choices=KLING_TYPES)
+   
     created_on = forms.DateTimeField(widget=forms.SelectDateWidget())
     title = forms.CharField(
          widget=forms.TextInput()
