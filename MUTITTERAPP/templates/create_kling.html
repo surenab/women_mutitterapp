@@ -1,124 +1,13 @@
+{% extends 'base_core.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cackling - Share Your Klings</title>
-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> 
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
-</head>
-<body>
-    <header class="tm-header" id="tm-header">
-        <div class="tm-header-wrapper">
-            <div class="user-info">
-            </div>
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><a class = "logo" src= "{% static 'img/logo.png' %}"> </a></div>            
-                <h1 class="text-center">Cackling</h1>
-            </div>
-            <nav class="tm-nav" id="tm-nav">            
-                <ul>
-                    <li class="tm-nav-item active"><a href="index.html" class="tm-nav-link">
-                        <i class="fas fa-home"></i>
-                        Blog Home
-                    </a></li>
-                    {% if request.user.is_authenticated %}
-                    <li class="tm-nav-item"><a href="{% url "create_kling" %}" class="tm-nav-link">
-                        <i class="fas fa-bell"></i>
-                        Make a Kling
-                        {% endif %}
-                    <li class="tm-nav-item"><a href="post.html" class="tm-nav-link">
-                        <i class="fas fa-pen"></i>
-                        Single Post
-                    </a></li>
-                    <li class="tm-nav-item"><a href="about.html" class="tm-nav-link">
-                        <i class="fas fa-users"></i>
-                        About Xtra
-                    </a></li>
-                    <li class="tm-nav-item"><a href="contact.html" class="tm-nav-link">
-                        <i class="far fa-comments"></i>
-                        Contact Us
-                    </a></li>
-                </ul>
-            </nav>
-            <div class="tm-mb-65">
-                <a rel="nofollow" href="https://fb.com/templatemo" class="tm-social-link">
-                    <i class="fab fa-facebook tm-social-icon"></i>
-                </a>
-                <a href="https://twitter.com" class="tm-social-link">
-                    <i class="fab fa-twitter tm-social-icon"></i>
-                </a>
-                <a href="https://instagram.com" class="tm-social-link">
-                    <i class="fab fa-instagram tm-social-icon"></i>
-                </a>
-                <a href="https://linkedin.com" class="tm-social-link">
-                    <i class="fab fa-linkedin tm-social-icon"></i>
-                </a>
-            </div>
-        </div>
-    </header>  
-      <div class="container-fluid">
-        <main class="tm-main">
-          <div class="user-info">
-        {% if request.user.is_authenticated %}
-        <p>User logged in by {{ request.user.email }} email</p>
-        <a href="{% url 'logout' %}">Log Out</a>
-        {% else %}
-        <a href="{% url 'login' %}">Log In</a>
-        {% endif %}
-    
+{% block bodycontent %} 
         <h1 class="kling-title">Create your Kling</h1>
         <br>
         <div class="form-group">
         <form  method="POST" enctype="multipart/form-data" action="{% url 'create_kling' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            
-           {% comment %} <div class="form-row">
-                <div class="col">
-                    <label for="kling_category">Choose Your Kling's Category</label>
-                    <select class="form-control form-control-lg" id = "kling_category" name="kling_category">
-                <option>Life and Love</option>
-                <option>Travel and Adventure</option>
-                <option>Art and Music</option>
-                <option>Nature</option>
-                <option>Food and Wellness</option>
-                <option>Careers</option>
-                <option>Science and Technology</option>
-                <option>Other</option>
-              </select>
-                  
-                </div>
-                
-                <div class="col">
-                    <label for="kling_title"> Your Kling's Title</label>
-                  <input class="form-control form-control-lg" if ="kling_title" name="title" type="text" placeholder="My Fairy Kling">
-                </div>
-              </div>
-            <br>
-              <div class="form-group">
-                <label for="text">Your Kling Here</label>
-                <textarea class="form-control" id="text" rows="5" name="text" placeholder="My Fairy Kling is abuot ..."></textarea>
-              </div>
-              <br>
-                <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile" name="image" >
-                <div id="selectedImageName"></div>
-                <label class="custom-file-label" for="customFile">Choose file</label>
-              </div> 
-              <br>
-              <br> {% endcomment %}
               <button class="btn btn-primary" type="submit" value="Submit">Submit Kling</button>
         </form> 
     </div>
-    </main>
-    </div>
-</div>
-</body>
-</html>
+{% include 'footer.html' %}{% endblock %}

@@ -1,92 +1,6 @@
+{% extends 'base_core.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cackling - Share Your Klings</title>
-	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> 
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/33cd771fbc.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div class="messages">
-        {% for message in messages %}
-        <div class = "alert-{{message.tags}}"> {{message}}</div>
-        {% endfor %}
-    </div>
-	<header class="tm-header" id="tm-header">
-        <div class="tm-header-wrapper">
-            <div class="user-info">
-            </div>
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><a class = "logo" src= "{% static 'img/logo.png' %}"> </a></div>            
-                <h1 class="text-center">Cackling</h1>
-            </div>
-            <nav class="tm-nav" id="tm-nav">            
-                <ul>
-                    <li class="tm-nav-item active"><a href="index.html" class="tm-nav-link">
-                        <i class="fas fa-home"></i>
-                        Blog Home
-                    </a></li>
-                    {% if request.user.is_authenticated %}
-                    <li class="tm-nav-item"><a href="{% url "create_kling" %}" class="tm-nav-link">
-                        <i class="fas fa-bell"></i>
-                        Make a Kling
-                        {% endif %}
-                    <li class="tm-nav-item"><a href="post.html" class="tm-nav-link">
-                        <i class="fas fa-pen"></i>
-                        Single Post
-                    </a></li>
-                    <li class="tm-nav-item"><a href="about.html" class="tm-nav-link">
-                        <i class="fas fa-users"></i>
-                        About Xtra
-                    </a></li>
-                    <li class="tm-nav-item"><a href="contact.html" class="tm-nav-link">
-                        <i class="far fa-comments"></i>
-                        Contact Us
-                    </a></li>
-                </ul>
-            </nav>
-            <div class="tm-mb-65">
-                <a rel="nofollow" href="https://fb.com/templatemo" class="tm-social-link">
-                    <i class="fab fa-facebook tm-social-icon"></i>
-                </a>
-                <a href="https://twitter.com" class="tm-social-link">
-                    <i class="fab fa-twitter tm-social-icon"></i>
-                </a>
-                <a href="https://instagram.com" class="tm-social-link">
-                    <i class="fab fa-instagram tm-social-icon"></i>
-                </a>
-                <a href="https://linkedin.com" class="tm-social-link">
-                    <i class="fab fa-linkedin tm-social-icon"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-    <div class="container-fluid">
-        <main class="tm-main">
-            <p>
-                {%for message in messages%}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {% endfor %}
-                {% if request.user.is_authenticated %}
-                <p>User logged in by {{ request.user.email }} email</p></li>
-                <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
-                {% else %}
-                <a href="{% url 'login' %}">Log In</a></li>
-                {% endif %}
-            </p>
+{% block bodycontent %} 
             <!-- Search form -->
             <div class="row tm-row">
                 <div class="col-12">
@@ -127,13 +41,9 @@
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span>Actions</span>
-           
-                        
                         <span>48 comments</span>
                         <span>{{kling.user}}</span>
                     <td>
-                            <a type="button" class="btn btn-primary" href="{% url 'my-kling-details' kling.id%}"><i
-                                    class="far fa-eye"></i></a>
                             <a type="button" class="btn btn-success" href="{% url 'my-kling-update'  kling.id %}"><i
                                     class="fas fa-edit"></i></a>
                             <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
@@ -179,8 +89,4 @@
                 <div class="col-md-6 col-12 tm-color-gray tm-copyright">
                     Copyright 2020 Xtra Blog Company Co. Ltd.
                 </div>
-            </footer>
-        </main>
-    </div>
-</body>
-</html>
+{% include 'footer.html' %}{% endblock %}

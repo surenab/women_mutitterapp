@@ -1,4 +1,6 @@
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   display: flex;
@@ -7,6 +9,16 @@ body {
   min-height: 100vh;
   font-family: "Jost", sans-serif;
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.messages .error {
+  list-style: none; /* This should remove the bullet point */
+  padding-left: 0; /* Remove any padding for cleaner display */
+}
+.alert {
+  margin-bottom: 20px;
+}
+.alert-error {
+  color: rgb(228, 81, 81);
 }
 .main {
   width: 400px;
