@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 from .filters import KlingFilter
-
+from django.core.paginator import Paginator
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -77,3 +77,16 @@ def contact(request):
     return render(request, 'contact.html')
 
 
+
+
+def kling_list(request):
+    klings = Kling.objects.all()
+    paginator = Paginator(klings, per_page=10)  # Number of items per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,  # This is what you'll use in your template for pagination
+    }
+
+    return render(request, 'kling_list.html', context)

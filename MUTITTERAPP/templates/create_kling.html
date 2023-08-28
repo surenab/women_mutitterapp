@@ -1,13 +1,50 @@
 {% extends 'base_core.html' %}
 {% load static %}
-{% block bodycontent %} 
+{% block bodycontent %}
         <h1 class="kling-title">Create your Kling</h1>
         <br>
         <div class="form-group">
-        <form  method="POST" enctype="multipart/form-data" action="{% url 'create_kling' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-              <button class="btn btn-primary" type="submit" value="Submit">Submit Kling</button>
-        </form> 
-    </div>
+          <form method="POST" enctype="multipart/form-data" action="/create-kling">
+            <div class="col">
+              <input type="hidden" name="csrfmiddlewaretoken" value="8d0pRnnRDKMziuw3qSocz83f1TeB061OKLiqZiMuGV8Nt8al3Y3Fp1ZePScTGgo3">
+              <p>
+              <label for="id_kling_category" >Select your Kling's category</label>
+                <select name="kling_category" id="id_kling_category" class="form-control form-control-lg">
+                <option value="Life and Love">Life and Love</option>
+                <option value="Travel and Adventure">Travel and Adventure</option>
+                <option value="Art and Music">Art and Music</option>
+                <option value="Nature">Nature</option>
+                <option value="Food and Wellness">Food and Wellness</option>
+                <option value="Careers">Careers</option>
+                <option value="Science and Technology">Science and Technology</option>
+                <option value="Other">Other</option>
+              </select>
+            </p>
+            <p>
+              <label for="id_title" >Title:</label>
+              <input type="text" name="title" required="" id="id_title" class="form-control form-control-lg" placeholder="My Fairy Kling">
+            </p>
+            <p>
+              <label for="id_text">Your Kling Here:</label>
+              <textarea name="text"  rows="5" class="form-control" required="" id="id_text" placeholder="My Fairy Kling is abuot ..."></textarea>
+            </p>
+            <p>
+              <label for="id_kling_types">Kling types:</label>
+              <select name="kling_types" id="id_kling_types" class="form-control">
+              <option value="1">Hot</option>
+              <option value="2">Standard</option>
+              <option value="3">Relaxing</option>
+              </select>
+            </p>
+            <p>
+              <div class="custom-file">
+              <label for="id_image" class="custom-file-label">Select your image:</label>
+              <input type="file" name="image" accept="image/*" required="" id="id_image" class="custom-file-input">
+              <div id="selectedImageName"></div>
+              </div>
+            </p>
+            <p>
+                <button class="btn btn-primary" type="submit" value="Submit">Submit Kling</button>
+          </form>
+        </div>
 {% include 'footer.html' %}{% endblock %}

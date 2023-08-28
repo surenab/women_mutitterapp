@@ -1,15 +1,34 @@
 {% extends 'base_core.html' %}
 {% load static %}
-{% block bodycontent %} 
+{% block bodycontent %}
 {% load pagination_tags %}
             <!-- Search form -->
             <div class="row tm-row">
                 <div class="col-12">
-                    <form action="" method="get">
-                        {{ filter.form }}
-                        <input type="submit" />
-                    </form>
-                </div>                
+                    <div class="row tm-row">
+                        <div class="col-12 col-md-6">
+                            <form action="" method="get" class="form-inline tm-mb-80 tm-search-form">
+                                {% csrf_token %}
+                                <label for="id_title">Search by Kling Title:</label><br>
+                                <input type="text" name="title" id="id_title" class="form-control rounded tm-search-input" placeholder="Search...">
+                                <label for="id_kling_category">Search by Kling category:</label>
+                                <select name="kling_category" id="id_kling_category" class="form-control rounded tm-search-input">
+                                <option value="" selected=""></option>
+                                <option value="Life and Love">Life and Love</option>
+                                <option value="Travel and Adventure">Travel and Adventure</option>
+                                <option value="Art and Music">Art and Music</option>
+                                <option value="Nature">Nature</option>
+                                <option value="Food and Wellness">Food and Wellness</option>
+                                <option value="Careers">Careers</option>
+                                <option value="Science and Technology">Science and Technology</option>
+                                <option value="Other">Other</option>
+                                </select>
+                                <button class="tm-search-button" type="submit">
+                                    <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
             </div>            
             <div class="row tm-row">
                 {% for kling in klings %}

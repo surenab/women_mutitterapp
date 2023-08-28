@@ -4,19 +4,33 @@
             <!-- Search form -->
             <div class="row tm-row">
                 <div class="col-12">
-                    <form method="GET" class="form-inline tm-mb-80 tm-search-form">
-                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
-                        <button class="tm-search-button" type="submit">
-                            <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                    <form action="" method="get">
-                        {{ filter.form }}
-                        <input type="submit" />
-                    </form>
-
+                    <div class="row tm-row">
+                        <div class="col-12 col-md-6">
+                            <form action="" method="get" class="form-inline tm-mb-80 tm-search-form">
+                                <label for="id_title">Search by Kling Title:</label><br>
+                                <input type="text" name="title" id="id_title" class="form-control rounded tm-search-input" placeholder="Search...">
+                                <label for="id_kling_category">Search by Kling category:</label>
+    
+                                <select name="kling_category" id="id_kling_category" class="form-control rounded tm-search-input">
+                                    <option value="" selected=""></option>
+                                    <option value="Life and Love">Life and Love</option>
+                                    <option value="Travel and Adventure">Travel and Adventure</option>
+                                    <option value="Art and Music">Art and Music</option>
+                                    <option value="Nature">Nature</option>
+                                    <option value="Food and Wellness">Food and Wellness</option>
+                                    <option value="Careers">Careers</option>
+                                    <option value="Science and Technology">Science and Technology</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <button class="tm-search-button" type="submit">
+                                <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                                </button>   
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>            
+            </div>
+                       
             <div class="row tm-row">
                 {% for kling in klings %}
                 <article class="col-12 col-md-6 tm-post">
@@ -55,32 +69,37 @@
                 {% endfor%}
             </div>
 
+<!-- Your other template content -->
 
-            <div class="row tm-row tm-mt-100 tm-mb-75">
-                <div class="tm-prev-next-wrapper">
-                    <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
-                    <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
-                </div>
-                <div class="tm-paging-wrapper">
-                    <span class="d-inline-block mr-3">Page</span>
-                    <nav class="tm-paging-nav d-inline-block">
-                        <ul>
-                            <li class="tm-paging-item active">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">1</a>
-                            </li>
-                            <li class="tm-paging-item">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">2</a>
-                            </li>
-                            <li class="tm-paging-item">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">3</a>
-                            </li>
-                            <li class="tm-paging-item">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">4</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>                
-            </div>            
+{% if is_paginated %}
+<nav aria-label="Page navigation example" class="d-flex justify-content-center pt-3">
+    <ul class="pagination">
+        {% if page_obj.has_previous and page_obj.number != 2 %}
+        <li class="page-item"><a class="page-link text-dark" href="?page=1" tabindex="-1"
+                aria-disabled="true">First Page</a></li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link text-dark"
+                href="?page={{ page_obj.previous_page_number }}">
+                {{ page_obj.previous_page_number }}
+            </a></li>
+        {% endif %}
+        <li class="page-item disabled"><span class="page-link">{{ page_obj.number }}</span></li>
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link text-dark"
+                href="?page={{ page_obj.next_page_number }}">
+                {{ page_obj.next_page_number }}
+            </a></li>
+        <li class="page-item"><a class="page-link text-dark"
+                href="?page={{ page_obj.paginator.num_pages }}">Last Page</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+
+<!-- Your other template content -->
+           
             <footer class="row tm-row">
                 <hr class="col-12">
                 <div class="col-md-6 col-12 tm-color-gray">
