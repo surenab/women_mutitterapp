@@ -1,0 +1,24 @@
+<nav class="tm-nav" id="tm-nav">            
+    <ul>
+        <li class="tm-nav-item {% if active_menu == 'home' %}active{% endif %}"><a href="{% url 'home' %}" class="tm-nav-link">
+            <i class="fas fa-home"></i>
+            Blog Home
+        </a></li>
+        {% if request.user.is_authenticated %}
+        <li class="tm-nav-item {% if active_menu == 'create_kling' %}active{% endif %}"><a href="{% url 'create_kling' %}" class="tm-nav-link">
+            <i class="fas fa-bell"></i>
+            Make a Kling
+            <li class="tm-nav-item {% if active_menu == 'my_klings' %}active{% endif %}"><a href="{% url 'my_klings' %}" class="tm-nav-link">
+                <i class="fas fa-pen"></i>
+            My Klings
+        {% endif %}
+        <li class="tm-nav-item {% if active_menu == 'about' %}active{% endif %}"><a href="{% url 'about' %}" class="tm-nav-link">
+            <i class="fas fa-users"></i>
+            About Cackling
+        </a></li>
+        <li class="tm-nav-item {% if active_menu == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}" class="tm-nav-link">
+            <i class="far fa-comments"></i>
+            Contact Us
+        </a></li>
+    </ul>
+</nav>
