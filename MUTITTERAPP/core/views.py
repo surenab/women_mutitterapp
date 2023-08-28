@@ -9,8 +9,6 @@ from django_filters.views import FilterView
 from .filters import KlingFilter
 from django.core.paginator import Paginator
 
-
-
 class Base(LoginRequiredMixin):
     def get_queryset(self):
         queryset = super(Base, self).get_queryset()
@@ -56,15 +54,6 @@ class MyKlingUpdate(LoginRequiredMixin, UpdateView):
         messages.success(self.request, "Kling instance is updated!")
         return super().form_valid(form)
 
-class MyKlingDetail( DetailView):
-    model = Kling
-    context_object_name = "kling"
-
-    def get_queryset(self):
-        queryset = super(MyKlingDetail, self).get_queryset()
-        queryset = queryset.filter(user=self.request.user)
-        return queryset
-
 class MyKlingDelete(LoginRequiredMixin, DeleteView):
     model = Kling
     context_object_name = "kling"
@@ -81,15 +70,23 @@ class Home(FilterView):
     filterset_class = KlingFilter
     template_name = "homepage.html"
 
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+
 
 def kling_list(request):
     klings = Kling.objects.all()
     paginator = Paginator(klings, per_page=10)  # Number of items per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     context = {
         'page_obj': page_obj,  # This is what you'll use in your template for pagination
     }
-    
+
     return render(request, 'kling_list.html', context)

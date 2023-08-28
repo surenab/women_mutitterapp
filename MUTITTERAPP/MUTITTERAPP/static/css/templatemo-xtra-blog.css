@@ -37,7 +37,7 @@ hr {
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 30px;
-    width: 100%;
+    width: 90%;
     height: 100%; 
 }
 
@@ -47,12 +47,12 @@ hr {
 }
 
 .tm-site-header {
-    margin-top: 50px;
-    margin-bottom: 115px;
+    margin-top: 30px;
+    margin-bottom: 85px;
 }
 
 .tm-site-logo {
-    width: 220px;
+    width: 330px;
     height: 220px;
     border-radius: 50%;
     background-color: white;    
@@ -86,13 +86,13 @@ hr {
 .tm-nav-link {
     color: white;
     background-color: transparent;
-    height: 75px;
+    height: 72px;
     width: 100%;
     max-width: 300px;    
     display: flex;
     align-items: center;
     font-size: 1.4rem;
-    padding: 30px;
+    padding: 25px;
 }
 
 .tm-nav-item:hover .tm-nav-link,
@@ -358,7 +358,7 @@ figcaption { line-height: 1.4; }
 .tm-mb-45 { margin-bottom: 45px; }
 .tm-mb-55 { margin-bottom: 55px; }
 .tm-mb-60 { margin-bottom: 60px; }
-.tm-mb-65 { margin-bottom: 65px; }
+.tm-mb-65 { margin-bottom: 20px; }
 .tm-mb-75 { margin-bottom: 75px; }
 .tm-mb-80 { margin-bottom: 80px; }
 .tm-mb-120 { margin-bottom: 120px; }
