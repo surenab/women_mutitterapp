@@ -1,6 +1,11 @@
 {% extends "base_for_register_login.html" %}
 {% block bodycontent %}
 
+{% if form.errors %}
+    {% for error in form.non_field_errors %}
+        <p class="error">{{ error }}</p>
+    {% endfor %}
+{% endif %}
 
 
 {% endblock %}

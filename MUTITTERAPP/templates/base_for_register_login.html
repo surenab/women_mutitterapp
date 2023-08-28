@@ -15,13 +15,7 @@
         {% endfor %}
 	</div>
 	{% endif %}
-	{% if form.errors.username %}
-		{{ form.errors.username }}
-	{% elif form.errors.password1 %}
-		{{ form.errors.password1 }}
-	{% elif form.errors.password2 %}
-		{{ form.errors.password2 }}
-	{% endif %}
+	{% block bodycontent %} {% endblock %}
 	<div class="main">
 		<input type="checkbox" id="chk" aria-hidden="true">
 			<div class="login" id="login">
