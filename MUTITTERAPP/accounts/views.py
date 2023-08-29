@@ -20,6 +20,11 @@ class Register(CreateView):
     form_class = RegisterForm
     success_url = reverse_lazy('login')
     template_name = "registration/register.html"
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Successfully Registered!")
+        return response
 
     def form_invalid(self, form):
         messages.error(self.request, "Registration Failed")
