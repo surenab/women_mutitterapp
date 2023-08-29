@@ -32,6 +32,7 @@ class MyKling(ListView):
     context_object_name = "klings"
     form_class = KlingForm
     success_url = reverse_lazy("my_klings")
+    paginate_by = 4
 
     def get_queryset(self):
         queryset = super(MyKling, self).get_queryset()
@@ -69,6 +70,7 @@ class Home(FilterView):
     context_object_name = "klings"
     filterset_class = KlingFilter
     template_name = "homepage.html"
+    paginate_by = 6
 
 def about(request):
     return render(request, 'about.html')
@@ -76,17 +78,13 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
-
-
-
 def kling_list(request):
     klings = Kling.objects.all()
-    paginator = Paginator(klings, per_page=10)  # Number of items per page
+    paginator = Paginator(klings, per_page=10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'page_obj': page_obj,  # This is what you'll use in your template for pagination
-    }
+        'page_obj': page_obj,  }
 
     return render(request, 'kling_list.html', context)

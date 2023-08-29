@@ -1,0 +1,28 @@
+{% load pagination_tags %}
+            {% if is_paginated %}
+            <div class="row tm-row tm-mt-100 tm-mb-75">
+                <div class="tm-prev-next-wrapper">
+                    {% if page_obj.has_previous %}
+                        <a href="?{% url_replace request 'page' page_obj.previous_page_number %}" class="mb-2 tm-btn tm-btn-primary tm-prev-next m-mr-20">Prev</a>
+                    {% else %}
+                        <a href="#" class="mb-2 tm-btn disabled tm-btn-primary tm-prev-next">Prev</a>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <a href="?{% url_replace request 'page' page_obj.next_page_number %}" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
+                    {% else %}
+                        <a href="#" class="mb-2 tm-btn disabled tm-btn-primary tm-prev-next">Next</a>
+                    {% endif %}
+                </div>
+                    <div class="tm-paging-wrapper">
+                        <span class="d-inline-block mr-3">Page</span>
+                        <nav class="tm-paging-nav d-inline-block">
+                            <ul>
+                                {% for i in page_obj.paginator.page_range %}
+                                <li class="tm-paging-item {% if i == page_obj.number %}active{% endif %}">
+                                    <a href="?{% url_replace request 'page' i %}" class="mb-2 tm-btn tm-paging-link">{{ i }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
+            {% endif %}    
