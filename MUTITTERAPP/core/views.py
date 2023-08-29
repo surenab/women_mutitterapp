@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from .models import Kling
-from django.views.generic import CreateView,UpdateView,ListView,DetailView,DeleteView
+from django.views.generic import CreateView,UpdateView,ListView,DeleteView
 from .forms import KlingForm
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -15,7 +15,6 @@ class Base(LoginRequiredMixin):
         queryset = queryset.filter(user=self.request.user)
         return queryset
 
-
 class CreateKling(CreateView):
     form_class = KlingForm
     success_url = reverse_lazy("home")
@@ -25,7 +24,6 @@ class CreateKling(CreateView):
         form.instance.user = self.request.user
         messages.success(self.request,"Klinged succesfully!")
         return super().form_valid(form)
-
 
 class MyKling(ListView):
     model = Kling
@@ -38,7 +36,6 @@ class MyKling(ListView):
         queryset = super(MyKling, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
-
 
 class MyKlingUpdate(LoginRequiredMixin, UpdateView):
     model = Kling
@@ -65,13 +62,12 @@ class MyKlingDelete(LoginRequiredMixin, DeleteView):
         queryset = queryset.filter(user=self.request.user)
         return queryset
 
-
 class Home(FilterView):
     context_object_name = "klings"
     filterset_class = KlingFilter
     template_name = "homepage.html"
     paginate_by = 6
-
+    ordering=["created_on"]
 def about(request):
     return render(request, 'about.html')
 

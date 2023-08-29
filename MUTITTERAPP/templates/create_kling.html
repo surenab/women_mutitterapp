@@ -5,8 +5,8 @@
         <br>
         <div class="form-group">
           <form method="POST" enctype="multipart/form-data" action="/create-kling">
+            {% csrf_token %}
             <div class="col">
-              <input type="hidden" name="csrfmiddlewaretoken" value="8d0pRnnRDKMziuw3qSocz83f1TeB061OKLiqZiMuGV8Nt8al3Y3Fp1ZePScTGgo3">
               <p>
               <label for="id_kling_category" >Select your Kling's category</label>
                 <select name="kling_category" id="id_kling_category" class="form-control form-control-lg">

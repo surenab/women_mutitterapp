@@ -17,10 +17,8 @@ class KlingForm(forms.ModelForm):
         ("Science and Technology", "Science and Technology"),
         ("Other", "Other"),
     )
-   
-    created_on = forms.DateTimeField(widget=forms.SelectDateWidget())
     title = forms.CharField(
-         widget=forms.TextInput()
+        widget=forms.TextInput()
     )
     text = forms.CharField(
         widget=forms.Textarea()
