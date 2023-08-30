@@ -15,7 +15,7 @@
                 <div class="col-12">
                     <h2 class="tm-color-primary tm-post-title tm-mb-60">Contact Us</h2>
                 </div>
-                <div class="col-lg-7 tm-contact-left">
+                {% comment %} <div class="col-lg-7 tm-contact-left">
                     <form method="POST" action="" class="mb-5 ml-auto mr-0 tm-contact-form">                        
                         <div class="form-group row mb-4">
                             <label for="name" class="col-sm-3 col-form-label text-right tm-color-primary">Name</label>
@@ -47,7 +47,30 @@
                             </div>                            
                         </div>                                
                     </form>
-                </div>
+                </div> {% endcomment %}
+                <div class="col-lg-5 col-md-8">
+                    <form action="/"  method="post" role="form" >
+                           {% csrf_token %}
+                         <div class="form-group">
+                           <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Your Name" required>
+                         </div>
+                         <div class="form-group mt-3">
+                           <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                         </div>
+                         <div class="form-group mt-3">
+                           <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                         </div>
+                         <div class="form-group mt-3">
+                           <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                         </div>
+                                
+                         <div class="text-center"><button type="submit" id="butt">Send Message</button></div>
+                        
+                         
+                       </form>
+                      
+                     </div>
+           
                 <div class="col-lg-5 tm-contact-right">
                     <address class="mb-4 tm-color-gray">
                         120 Lorem ipsum dolor sit amet,
