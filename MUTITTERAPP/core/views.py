@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import Kling
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView
 from .forms import KlingForm
@@ -8,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 from .filters import KlingFilter
 from django.core.paginator import Paginator
+from django.db.models.functions import Length
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -33,9 +35,16 @@ class MyKling(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        queryset = super(MyKling, self).get_queryset()
+        queryset = super(MyKling, self).get_queryset().order_by('-created_on')
         queryset = queryset.filter(user=self.request.user)
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        klings = context['klings']
+        for kling in klings:
+            kling.text = ' '.join(kling.text.split()[:50])
+        return context
 
 class MyKlingUpdate(LoginRequiredMixin, UpdateView):
     model = Kling
@@ -67,15 +76,37 @@ class Home(FilterView):
     filterset_class = KlingFilter
     template_name = "homepage.html"
     paginate_by = 6
-    ordering=["created_on"]
+    
+    def get_queryset(self):
+        queryset = Kling.objects.order_by('-created_on')
+        return queryset.annotate(text_length=Length('text'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        klings = context['klings']
+        for kling in klings:
+            kling.text = ' '.join(kling.text.split()[:50])
+        return context
+
 def about(request):
     return render(request, 'about.html')
 
 def contact(request):
     return render(request, 'contact.html')
 
+def post(request, pk):
+    try:
+        kling = Kling.objects.get(pk=pk)
+    except Kling.DoesNotExist:
+        return HttpResponse("Post not found.", status=404)
+    context = {
+        'kling': kling,
+    }
+
+    return render(request, 'post.html', context)
+
 def kling_list(request):
-    klings = Kling.objects.all()
+    klings = Kling.objects.all() 
     paginator = Paginator(klings, per_page=10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

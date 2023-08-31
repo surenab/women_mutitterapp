@@ -29,8 +29,6 @@ class KlingForm(forms.ModelForm):
     image = forms.ImageField()
     kling_types = forms.ChoiceField(choices=KLING_TYPES)
     
-    """Docstring fot Meta."""
-
     class Meta:
         model = Kling
         fields = ("kling_category", "title", "text", "image")

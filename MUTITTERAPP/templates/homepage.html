@@ -2,44 +2,47 @@
 {% load static %}
 {% block bodycontent %}
             <!-- Search form -->
-            <div class="row tm-row">
-                <div class="col-12">
-                    <div class="row tm-row">
-                        <div class="col-12 col-md-6">
-                            <form action="" method="get" class="form-inline tm-mb-80 tm-search-form">
-                                {% csrf_token %}
-                                <label for="id_title">Search by Kling Title:</label><br>
-                                <input type="text" name="title" id="id_title" class="form-control rounded tm-search-input" placeholder="Search...">
-                                <label for="id_kling_category">Search by Kling category:</label>
-                                <select name="kling_category" id="id_kling_category" class="form-control rounded tm-search-input">
-                                <option value="" selected=""></option>
-                                <option value="Life and Love">Life and Love</option>
-                                <option value="Travel and Adventure">Travel and Adventure</option>
-                                <option value="Art and Music">Art and Music</option>
-                                <option value="Nature">Nature</option>
-                                <option value="Food and Wellness">Food and Wellness</option>
-                                <option value="Careers">Careers</option>
-                                <option value="Science and Technology">Science and Technology</option>
-                                <option value="Other">Other</option>
-                                </select>
-                                <button class="tm-search-button" type="submit">
-                                    <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
-                                </button>
-                            </form>
+            <div class = "search">
+                <form action="" method="get" class="form-inline tm-mb-80 tm-search-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="id_title" class="tm-form-label">Search by Kling Title:</label>
+                            <input type="text" name="title" id="id_title" class="form-control rounded tm-search-input" placeholder="Search...">
                         </div>
                     </div>
-            </div>            
+                    <div class="col-md-5">
+                        <label for="id_kling_category" class="tm-form-label">Enter Kling category:</label>
+                        <div class="form-group">
+                            <select name="kling_category" id="id_kling">
+                            <option value="Life and Love">Life and Love</option>
+                            <option value="Travel and Adventure">Travel and Adventure</option>
+                            <option value="Art and Music">Art and Music</option>
+                            <option value="Nature">Nature</option>
+                            <option value="Food and Wellness">Food and Wellness</option>
+                            <option value="Careers">Careers</option>
+                            <option value="Science and Technology">Science and Technology</option>
+                            <option value="Other">Other</option>
+                            </select>
+                            <button class="tm-search-button" type="submit">
+                                <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>        
             <div class="row tm-row">
                 {% for kling in klings %}
                 <article class="col-12 col-md-6 tm-post">
                     <hr class="tm-hr-primary">
-                    <a href="post.html" class="effect-lily tm-post-link tm-pt-60">
+                    <a href="{% url 'post' kling.id %}" class="effect-lily tm-post-link tm-pt-60">
                         <div class=" tm-post-link-inner">
                             {% if kling.image %}
-                                <img src="{{ kling.image.url }}">
+                                <img class="kling-image" src="{{ kling.image.url }}">
                             {% endif %}
                         </div>
-                        <span class="position-absolute tm-new-badge">New</span>
+                        <span class="position-absolute tm-new-badge">{{kling.get_kling_type_display}}</span>
                         <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{kling.title}}</h2>
                     </a>                    
                     <p class="tm-pt-30">
@@ -57,5 +60,6 @@
                 </article>
                 {% endfor%}
             </div>
-{% include 'pagination.html' %}
-{% include 'footer.html' %}{% endblock %}
+    {% include 'pagination.html' %}
+    {% include 'footer.html' %}
+{% endblock %}
