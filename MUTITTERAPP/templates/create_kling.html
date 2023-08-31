@@ -4,7 +4,7 @@
         <h1 class="kling-title">Create your Kling</h1>
         <br>
         <div class="form-group">
-          <form method="POST" enctype="multipart/form-data" action="/create-kling">
+          <form class="klingcreation" method="POST" enctype="multipart/form-data" action="/create-kling">
             {% csrf_token %}
             <div class="col">
               <p>
@@ -26,7 +26,7 @@
             </p>
             <p>
               <label for="id_text">Your Kling Here:</label>
-              <textarea name="text"  rows="5" class="form-control" required="" id="id_text" placeholder="My Fairy Kling is abuot ..."></textarea>
+              <textarea name="text"  rows="5" class="form-control" required="" id="id_text" placeholder="My Fairy Kling is about ..."></textarea>
             </p>
             <p>
               <label for="id_kling_types">Kling types:</label>
