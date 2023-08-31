@@ -392,9 +392,10 @@ figcaption { line-height: 1.4; }
 .tm-post-full { max-width: 600px; }
 
 .tm-post-sidebar {
-    max-width: 280px;
+    max-width: 250px;
     margin-left: auto;
     margin-right: 0;
+    margin-top: 38px;
 }
 
 .tm-pt-20 { padding-top: 20px; }
@@ -402,7 +403,7 @@ figcaption { line-height: 1.4; }
 .tm-pt-45 { padding-top: 45px; }
 .tm-pt-60 { padding-top: 60px; }
 .tm-mb-40 { margin-bottom: 40px; }
-.tm-mb-45 { margin-bottom: 45px; }
+.tm-mb-45 { margin-bottom: 90px; }
 .tm-mb-55 { margin-bottom: 55px; }
 .tm-mb-60 { margin-bottom: 60px; }
 .tm-mb-65 { margin-bottom: 20px; }
@@ -455,7 +456,9 @@ a:hover figcaption { color: #056767; }
 .tm-social-links li a:hover i.fa-youtube { color: #c4302b; }
 .tm-social-links li a:hover i.fa-instagram { color: #3f729b; }
 
-.tm-contact-right { padding-left: 55px; }
+.tm-contact-right { padding-left: 0px;
+    margin-top: -19px; 
+}
 .tm-contact-form { max-width: 488px; }
 
 .tm-contact-form input,

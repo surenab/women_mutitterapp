@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, CreateKling,MyKlingUpdate,MyKling,MyKlingDelete,MessageView, about, contact, post
+from .views import Home, CreateKling,MyKlingUpdate,MyKling,MyKlingDelete,MessageView, about, post
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -11,8 +11,8 @@ urlpatterns = [
     path("my-klings-update/<int:pk>", MyKlingUpdate.as_view(), name="my-kling-update"),
     path("my-klings/delete/<int:pk>", MyKlingDelete.as_view(), name="my_kling_delete"),
     path("about", about, name="about"),
-    path("post/<int:pk>>", post, name="post")
-    path("contact/",  MessageView.as_view(), name="contact")
+    path("post/<int:pk>>", post, name="post"),
+    path("contact",  MessageView.as_view(), name="contact")
 ]
 
 if settings.DEBUG:
