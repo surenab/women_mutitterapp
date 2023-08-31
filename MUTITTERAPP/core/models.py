@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
 User = get_user_model()
 
 
@@ -29,4 +30,8 @@ class Kling(models.Model):
 
 
 
-
+class Message(models.Model):
+    full_name = models.CharField(max_length=60)
+    email = models.EmailField()
+    subject = models.CharField(max_length=150)
+    message = models.CharField(max_length=700)

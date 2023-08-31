@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Kling
-from django.views.generic import CreateView,UpdateView,ListView,DeleteView
-from .forms import KlingForm
+from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View
+from .forms import KlingForm, MessageForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -68,11 +68,12 @@ class Home(FilterView):
     template_name = "homepage.html"
     paginate_by = 6
     ordering=["created_on"]
+    
+    
 def about(request):
     return render(request, 'about.html')
 
-def contact(request):
-    return render(request, 'contact.html')
+
 
 def kling_list(request):
     klings = Kling.objects.all()
@@ -84,3 +85,19 @@ def kling_list(request):
         'page_obj': page_obj,  }
 
     return render(request, 'kling_list.html', context)
+
+class MessageView(View):
+    template_name = 'contact.html'
+    success_url = reverse_lazy("home")
+    
+    def get(self, request):
+        form = MessageForm()
+        return render(request, self.template_name, {'form': form})
+    def post(self, request):
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  
+        return render(request, self.template_name, {'form': form})
+    
+    
