@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from .models import Kling
-from django.views.generic import CreateView,UpdateView,ListView,DeleteView
-from .forms import KlingForm
+from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View
+from .forms import KlingForm, MessageForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -91,18 +91,13 @@ class Home(FilterView):
 def about(request):
     return render(request, 'about.html')
 
-def contact(request):
-    return render(request, 'contact.html')
-
 def post(request, pk):
     try:
         kling = Kling.objects.get(pk=pk)
     except Kling.DoesNotExist:
         return HttpResponse("Post not found.", status=404)
     context = {
-        'kling': kling,
-    }
-
+        'kling': kling,}
     return render(request, 'post.html', context)
 
 def kling_list(request):
@@ -111,7 +106,21 @@ def kling_list(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    context = {
-        'page_obj': page_obj,  }
-
+    context = {'page_obj': page_obj}
     return render(request, 'kling_list.html', context)
+
+class MessageView(View):
+    template_name = 'contact.html'
+    success_url = reverse_lazy("home")
+    
+    def get(self, request):
+        form = MessageForm()
+        return render(request, self.template_name, {'form': form})
+    def post(self, request):
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  
+        return render(request, self.template_name, {'form': form})
+    
+    
