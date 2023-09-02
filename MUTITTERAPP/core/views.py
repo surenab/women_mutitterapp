@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 from .filters import KlingFilter
-
+from .models import UserProfile
+from .forms import UserProfileForm
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -69,6 +70,7 @@ class Home(FilterView):
     context_object_name = "klings"
     filterset_class = KlingFilter
     template_name = "homepage.html"
+    paginate_by = 2
 
 def about(request):
     return render(request, 'about.html')
@@ -76,4 +78,16 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def view_profile(request, username):
+    user_profile = UserProfile.objects.get(user__username=username)
+    return render(request, 'profile/view_profile.html', {'user_profile': user_profile})
 
+def edit_profile(request):
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('view_profile', username=request.user.username)
+    else:
+        profile_form = UserProfileForm(instance=request.user.userprofile)
+    return render(request, 'profile/edit_profile.html', {'profile_form': profile_form})

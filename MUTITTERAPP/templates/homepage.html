@@ -39,37 +39,13 @@
                 </article>
                 {% endfor%}
             </div>
-            <div class="row tm-row tm-mt-100 tm-mb-75">
-                <div class="tm-prev-next-wrapper">
-                    <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next disabled tm-mr-20">Prev</a>
-                    <a href="#" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
-                </div>
-                <div class="tm-paging-wrapper">
-                    <span class="d-inline-block mr-3">Page</span>
-                    <nav class="tm-paging-nav d-inline-block">
-                        <ul>
-                            <li class="tm-paging-item active">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">1</a>
-                            </li>
-                            <li class="tm-paging-item">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">2</a>
-                            </li>
-                            <li class="tm-paging-item">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">3</a>
-                            </li>
-                            <li class="tm-paging-item">
-                                <a href="#" class="mb-2 tm-btn tm-paging-link">4</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>                
-            </div>            
+           
             {% if is_paginated %}
                 <nav aria-label="Page navigation example" class="d-flex justify-content-center pt-3">
                     <ul class="pagination">
                         {% if page_obj.has_previous and page_obj.number != 2 %}
-                        <li class="page-item"><a class="page-link text-dark" href="?{% url_replace request 'page' 1 %}" tabindex="-1"
-                                aria-disabled="true">First Page</a></li>
+                        <li class="page-item"><a class="page-link text-dark" href="?{% url_replace request 'page' 1 %}"
+                                tabindex="-1" aria-disabled="true">First Page</a></li>
                         {% endif %}
                         {% if page_obj.has_previous %}
                         <li class="page-item"><a class="page-link text-dark"
@@ -91,5 +67,7 @@
                         {% endif %}
                     </ul>
                 </nav>
-            {% endif %}
-{% include 'footer.html' %}{% endblock %}
+                {% endif %}
+{% include 'footer.html' %}
+{% endblock %}
+

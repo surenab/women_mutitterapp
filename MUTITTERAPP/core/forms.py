@@ -2,6 +2,7 @@ from typing import Any
 from django import forms
 from .models import Kling
 from django.utils import timezone
+from .models import UserProfile
 
 
 class KlingForm(forms.ModelForm):
@@ -37,6 +38,9 @@ class KlingForm(forms.ModelForm):
         model = Kling
         fields = ("kling_category", "title", "text", "image")
 
-
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['bio', 'profile_picture']
 
 

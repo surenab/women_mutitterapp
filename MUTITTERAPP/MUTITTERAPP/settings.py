@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from django.urls import reverse_lazy
 from django.contrib.messages import constants
+from core.models import CustomUserManager
+from core.models import UserProfile
+from django.core.wsgi import get_wsgi_application
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -151,3 +154,11 @@ MESSAGE_TAGS = {
     constants.DEBUG: 'alert-light',
 }
 
+AUTH_USER_MODEL = 'core.CustomUserManagere'
+AUTH_USER_MODEL = 'core.UserProfile'
+
+INSTALLED_APPS = [
+    # ...
+    'core',  # Replace with your app name
+    # ...
+]

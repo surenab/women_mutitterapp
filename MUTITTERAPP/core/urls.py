@@ -14,7 +14,9 @@ urlpatterns = [
     path("my-klings-update/<int:pk>", MyKlingUpdate.as_view(), name="my-kling-update"),
     path("my-klings/delete/<int:pk>", MyKlingDelete.as_view(), name="my_kling_delete"),
     path("about", about, name="about"),
-    path("contact", contact, name="contact")
+    path("contact", contact, name="contact"),
+    path('profile/<str:username>/', views.view_profile, name='view_profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]
 
 if settings.DEBUG:
