@@ -83,10 +83,7 @@ hr {
     padding: 80px 100px 25px;
 }
 
-.tm-post { max-width: 470px; }
-
 .tm-row {
-    max-width: 1014px;
     justify-content: space-between;
 }
 
@@ -114,8 +111,8 @@ hr {
 
 .tm-nav-item:hover .tm-nav-link,
 .tm-nav-item.active .tm-nav-link
- {
-    color: #573b8a;
+{
+    color: #0f0c29;
     background-color: white;
     text-decoration: none;
 }
@@ -259,7 +256,10 @@ ul {
 	transform: translate3d(0,0,0);
 }
 
-.tm-post { margin-bottom: 75px; }
+.tm-post { 
+    margin-bottom: 75px;     
+    padding-right: 20px; 
+    max-width: 400px;}
 .tm-post:hover {
     transform: translateY(-5px);
 }
@@ -298,14 +298,16 @@ ul {
     border: none;
 }
 .tm-btn-primary:hover {
-    background-color: #09b6b6;
+    background-color: #0f0c29;
     color: white;
 }
 
-.tm-btn-small { padding: 8px 33px; }
+.tm-btn-small { padding: 8px 33px;
+    margin: auto;
+}
 
 .tm-btn-primary:hover {
-    background-color: #09b6b6;
+    background-color: #0f0c29;
     color: white;
 }
 
@@ -339,8 +341,8 @@ ul {
     cursor: not-allowed;
 }
 
-.tm-external-link { color: #0CC; }
-.tm-external-link:hover { color: #09b6b6; }
+.tm-external-link { color: #0f0c29; }
+.tm-external-link:hover { color: #0f0c29; }
 
 .tm-paging-wrapper {
     display: flex;
@@ -415,7 +417,7 @@ figcaption { line-height: 1.4; }
 .tm-mr-20 { margin-right: 20px; }
 .tm-color-primary, span.tm-color-primary { color: #453f88; }
 a.tm-color-gray, .tm-color-gray { color: #999; }
-a.tm-color-gray:hover { color: #099; }
+a.tm-color-gray:hover { color: #0f0c29; }
 .tm-bg-gray { background-color: #F3F4F5; }
 button:focus { outline: none; }
 a:hover { 
@@ -444,7 +446,7 @@ a:hover figcaption { color: #056767; }
 .tm-social-links li a {
     display: block;
     color: white;
-    background-color: #0CC;
+    background-color: #0f0c29;
     width: 45px;
     height: 45px;    
     margin-right: 15px;    
@@ -518,7 +520,7 @@ a:hover figcaption { color: #056767; }
         position: fixed;
         left: 0;
         top: 0;
-        background-color: rgba(56, 204, 204, 0.75);
+        background-color: #0f0c29;
         color: white;
         padding: 10px 15px;
         transition: all 0.3s ease;
@@ -648,6 +650,9 @@ a:hover figcaption { color: #056767; }
 .footer {
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     margin-top: 60px;
+    max-width: 1100px;
+    margin-bottom: 23px;
+    margin-left: 550px;
 }
 .footer h3 {
     font-size: 24px;
@@ -670,7 +675,7 @@ a:hover figcaption { color: #056767; }
 
 .footer input[type="submit"] {
     padding: 10px 20px;
-    background-color: #54108b;
+    background-color: #0f0c29;
     color: white;
     border: none;
     border-radius: 0 5px 5px 0;
