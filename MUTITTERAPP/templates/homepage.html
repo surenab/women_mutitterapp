@@ -1,27 +1,48 @@
 {% extends 'base_core.html' %}
 {% load static %}
-{% block bodycontent %} 
-{% load pagination_tags %}
+{% block bodycontent %}
             <!-- Search form -->
-            <div class="row tm-row">
-                <div class="col-12">
-                    <form action="" method="get">
-                        {{ filter.form }}
-                        <input type="submit" />
-                    </form>
-                </div>                
-            </div>            
+            <div class = "search">
+                <form action="" method="get" class="form-inline tm-mb-80 tm-search-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="id_title" class="tm-form-label">Search by Kling Title:</label>
+                            <input type="text" name="title" id="id_title" class="form-control rounded tm-search-input" placeholder="Search...">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="id_kling_category" class="tm-form-label">Enter Kling category:</label>
+                        <div class="form-group">
+                            <select name="kling_category" id="id_kling">
+                            <option value="Life and Love">Life and Love</option>
+                            <option value="Travel and Adventure">Travel and Adventure</option>
+                            <option value="Art and Music">Art and Music</option>
+                            <option value="Nature">Nature</option>
+                            <option value="Food and Wellness">Food and Wellness</option>
+                            <option value="Careers">Careers</option>
+                            <option value="Science and Technology">Science and Technology</option>
+                            <option value="Other">Other</option>
+                            </select>
+                            <button class="tm-search-button" type="submit">
+                                <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>        
             <div class="row tm-row">
                 {% for kling in klings %}
                 <article class="col-12 col-md-6 tm-post">
                     <hr class="tm-hr-primary">
-                    <a href="post.html" class="effect-lily tm-post-link tm-pt-60">
+                    <a href="{% url 'post' kling.id %}" class="effect-lily tm-post-link tm-pt-60">
                         <div class=" tm-post-link-inner">
                             {% if kling.image %}
-                                <img src="{{ kling.image.url }}">
+                                <img class="kling-image" src="{{ kling.image.url }}">
                             {% endif %}
                         </div>
-                        <span class="position-absolute tm-new-badge">New</span>
+                        <span class="position-absolute tm-new-badge">{{kling.get_kling_type_display}}</span>
                         <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{kling.title}}</h2>
                     </a>                    
                     <p class="tm-pt-30">
@@ -39,35 +60,6 @@
                 </article>
                 {% endfor%}
             </div>
-           
-            {% if is_paginated %}
-                <nav aria-label="Page navigation example" class="d-flex justify-content-center pt-3">
-                    <ul class="pagination">
-                        {% if page_obj.has_previous and page_obj.number != 2 %}
-                        <li class="page-item"><a class="page-link text-dark" href="?{% url_replace request 'page' 1 %}"
-                                tabindex="-1" aria-disabled="true">First Page</a></li>
-                        {% endif %}
-                        {% if page_obj.has_previous %}
-                        <li class="page-item"><a class="page-link text-dark"
-                                href="?{% url_replace request 'page' page_obj.previous_page_number %}">
-                                {{ page_obj.previous_page_number}}
-                            </a></li>
-                        {% endif %}
-                        <li class="page-item disabled"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
-                        {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link text-dark"
-                                href="?{% url_replace request 'page' page_obj.next_page_number %}">
-                                {{ page_obj.next_page_number }}
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% if page_obj.paginator.num_pages != page_obj.number %}
-                        <li class="page-item"><a class="page-link text-dark"
-                                href="?{% url_replace request 'page' page_obj.paginator.num_pages %}">Last Page</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-                {% endif %}
-{% include 'footer.html' %}
+        {% include 'pagination.html' %}
 {% endblock %}
 

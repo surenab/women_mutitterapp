@@ -212,7 +212,7 @@ figure {
 img {
     vertical-align: middle;
     border-style: none;
-    width: 238px;
+    width: 225px;
 }
 
 svg {
@@ -272,14 +272,18 @@ select {
 }
 
 select {
-    word-wrap: normal
+    word-wrap: normal;
+    height: 45px;
+    width: 300px;
+    border-radius: 5px;
 }
 
 [type=button],
 [type=reset],
 [type=submit],
 button {
-    -webkit-appearance: button
+-webkit-appearance: button;
+appearance: none;
 }
 
 [type=button]:not(:disabled),
@@ -307,7 +311,8 @@ input[type=date],
 input[type=datetime-local],
 input[type=month],
 input[type=time] {
-    -webkit-appearance: listbox
+    -webkit-appearance: listbox;
+    appearance: none;
 }
 
 textarea {
@@ -345,7 +350,8 @@ progress {
 
 [type=search] {
     outline-offset: -2px;
-    -webkit-appearance: none
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 [type=search]::-webkit-search-decoration {
@@ -376,7 +382,19 @@ template {
 .login-logout {
     text-align: right;
     margin-bottom: 80px;
+    margin-top: 10px;
+    color: #555;
 }
+.login-logout a {
+    color: #4a11a5;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.login-logout a:hover {
+    color: #212529;
+}
+
 .h1,
 .h2,
 .h3,
@@ -401,7 +419,7 @@ h1 {
 
 .h2,
 h2 {
-    font-size: 2rem
+    font-size: 2rem;
 }
 
 .h3,
@@ -753,8 +771,6 @@ pre code {
 .col-xl-auto {
     position: relative;
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px
 }
 
 .col {
@@ -762,7 +778,7 @@ pre code {
     flex-basis: 0;
     -ms-flex-positive: 1;
     flex-grow: 1;
-    max-width: 100%
+    max-width: 70%
 }
 
 .row-cols-1>* {
@@ -875,9 +891,8 @@ pre code {
 }
 
 .col-12 {
-    -ms-flex: 0 0 100%;
-    /* flex:0 0 100%; */
     max-width: 100%;
+    margin-bottom: -40px
 }
 
 .order-first {
@@ -2472,7 +2487,7 @@ select.form-control:focus::-ms-value {
 .form-control-lg {
     height: calc(1.5em + 1rem + 2px);
     padding: .5rem 1rem;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     line-height: 1.5;
     border-radius: .3rem
 }
@@ -2871,7 +2886,7 @@ textarea.form-control.is-invalid {
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: .375rem 1.75rem;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
@@ -2907,14 +2922,14 @@ fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #2c0e72;
+    border-color: #380b4d
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc
+    background-color: #5e3bad;
+    border-color: #5e3bad
 }
 
 .btn-primary.focus,
@@ -4419,7 +4434,8 @@ input[type=submit].btn-block {
     display: inline-block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
-    margin-bottom: 0
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 .custom-file-input {
@@ -4428,8 +4444,9 @@ input[type=submit].btn-block {
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
     margin: 0;
-    opacity: 0
-}
+    opacity: 0;
+    padding-top: 17px;
+}   
 
 .custom-file-input:focus~.custom-file-label {
     border-color: #80bdff;
@@ -6659,6 +6676,9 @@ a.close.disabled {
 .modal-footer>* {
     margin: .25rem
 }
+.tm-form-label {
+    text-align: left;
+}
 
 .modal-scrollbar-measure {
     position: absolute;
@@ -7815,7 +7835,8 @@ button.bg-dark:hover {
 
 .flex-row {
     -ms-flex-direction: row !important;
-    flex-direction: row !important
+    flex-direction: row !important;
+    text-align: center;
 }
 
 .flex-column {
@@ -9028,7 +9049,7 @@ button.bg-dark:hover {
 }
 
 .m-5 {
-    margin: 3rem !important
+    margin: 0rem !important
 }
 
 .mt-5,
@@ -9105,7 +9126,8 @@ button.bg-dark:hover {
 
 .pt-2,
 .py-2 {
-    padding-top: .5rem !important
+    padding-top: .5rem !important;
+    margin-top: 125px
 }
 
 .pr-2,
@@ -9129,7 +9151,7 @@ button.bg-dark:hover {
 
 .pt-3,
 .py-3 {
-    padding-top: 1rem !important
+    padding-top: 0rem !important
 }
 
 .pr-3,
@@ -9139,7 +9161,7 @@ button.bg-dark:hover {
 
 .pb-3,
 .py-3 {
-    padding-bottom: 1rem !important
+    padding-bottom: 0rem !important
 }
 
 .pl-3,

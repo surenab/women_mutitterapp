@@ -7,6 +7,21 @@ body {
     font-size: 19px;
     line-height: 2em;
     overflow-x: hidden;
+    background-color: #f0f0f0
+}
+
+.logo-link {
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #573b8a;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.logo-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 p, span { color: #999; }
@@ -20,9 +35,8 @@ hr {
 .form-control::placeholder { color: #999; }
 
 .tm-header {
-    background-color: #573b8a;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     color: white;
-    
     position: fixed;
     top: 0;
     left: 0;
@@ -69,10 +83,7 @@ hr {
     padding: 80px 100px 25px;
 }
 
-.tm-post { max-width: 470px; }
-
 .tm-row {
-    max-width: 980px;
     justify-content: space-between;
 }
 
@@ -93,12 +104,15 @@ hr {
     align-items: center;
     font-size: 1.4rem;
     padding: 25px;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
 .tm-nav-item:hover .tm-nav-link,
 .tm-nav-item.active .tm-nav-link
- {
-    color: #573b8a;
+{
+    color: #0f0c29;
     background-color: white;
     text-decoration: none;
 }
@@ -155,31 +169,51 @@ ul {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-top: -80px;
 }
 
 .form-inline .form-control.tm-search-input {
     display: block;
-    height: 60px;
+    height: 45px;
     width: 480px;
     margin-right: 30px;
     border-radius: 0;
     border-color: #573b8a;
     font-size: 1.2rem;
 }
-
-.tm-search-button {
-    width: 60px;
-    height: 60px;
-    border: none;
-    background-color: #573b8a;
-    transition: all 0.3s ease;
+.klingcreation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.kling-image {
+    width: 300px; 
+    height: 300px; 
+    object-fit: cover;
+}
+.kling-title {
+    color: #463399;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.tm-search-button:hover { background-color: #09b6b6; }
+.tm-search-button {
+    width: 50px;
+    height: 45px;
+    border: none;
+    background-color: #38098f;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.tm-search-button:hover { background-color: #210b49; }
 
 .tm-search-icon {
     color: white;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .tm-post-link {
@@ -200,6 +234,9 @@ ul {
 	max-width: 100%;
 	opacity: 0.8;
 }
+.tm-post-link:hover img {
+    opacity: 1;
+}
 
 .effect-lily img {
 	max-width: none;
@@ -219,7 +256,13 @@ ul {
 	transform: translate3d(0,0,0);
 }
 
-.tm-post { margin-bottom: 75px; }
+.tm-post { 
+    margin-bottom: 75px;     
+    padding-right: 20px; 
+    max-width: 400px;}
+.tm-post:hover {
+    transform: translateY(-5px);
+}
 
 .tm-new-badge {
     top: 25px;
@@ -254,11 +297,17 @@ ul {
     padding: 8px 43px;
     border: none;
 }
+.tm-btn-primary:hover {
+    background-color: #0f0c29;
+    color: white;
+}
 
-.tm-btn-small { padding: 8px 33px; }
+.tm-btn-small { padding: 8px 33px;
+    margin: auto;
+}
 
 .tm-btn-primary:hover {
-    background-color: #09b6b6;
+    background-color: #0f0c29;
     color: white;
 }
 
@@ -292,8 +341,8 @@ ul {
     cursor: not-allowed;
 }
 
-.tm-external-link { color: #0CC; }
-.tm-external-link:hover { color: #09b6b6; }
+.tm-external-link { color: #0f0c29; }
+.tm-external-link:hover { color: #0f0c29; }
 
 .tm-paging-wrapper {
     display: flex;
@@ -332,9 +381,9 @@ video {
 .tm-comment-reply { padding-left: 37px; }
 
 .form-control {
-    height: 45px;
-    border-color: #0CC;
-    border-radius: 0;
+    height: 50px;
+    border-color: rgb(65, 20, 116);
+    border-radius: 100;
 }
 
 .tm-comment-form { max-width: 360px; }
@@ -345,9 +394,10 @@ figcaption { line-height: 1.4; }
 .tm-post-full { max-width: 600px; }
 
 .tm-post-sidebar {
-    max-width: 280px;
+    max-width: 250px;
     margin-left: auto;
     margin-right: 0;
+    margin-top: 38px;
 }
 
 .tm-pt-20 { padding-top: 20px; }
@@ -355,7 +405,7 @@ figcaption { line-height: 1.4; }
 .tm-pt-45 { padding-top: 45px; }
 .tm-pt-60 { padding-top: 60px; }
 .tm-mb-40 { margin-bottom: 40px; }
-.tm-mb-45 { margin-bottom: 45px; }
+.tm-mb-45 { margin-bottom: 90px; }
 .tm-mb-55 { margin-bottom: 55px; }
 .tm-mb-60 { margin-bottom: 60px; }
 .tm-mb-65 { margin-bottom: 20px; }
@@ -367,7 +417,7 @@ figcaption { line-height: 1.4; }
 .tm-mr-20 { margin-right: 20px; }
 .tm-color-primary, span.tm-color-primary { color: #453f88; }
 a.tm-color-gray, .tm-color-gray { color: #999; }
-a.tm-color-gray:hover { color: #099; }
+a.tm-color-gray:hover { color: #0f0c29; }
 .tm-bg-gray { background-color: #F3F4F5; }
 button:focus { outline: none; }
 a:hover { 
@@ -396,7 +446,7 @@ a:hover figcaption { color: #056767; }
 .tm-social-links li a {
     display: block;
     color: white;
-    background-color: #0CC;
+    background-color: #0f0c29;
     width: 45px;
     height: 45px;    
     margin-right: 15px;    
@@ -408,7 +458,9 @@ a:hover figcaption { color: #056767; }
 .tm-social-links li a:hover i.fa-youtube { color: #c4302b; }
 .tm-social-links li a:hover i.fa-instagram { color: #3f729b; }
 
-.tm-contact-right { padding-left: 55px; }
+.tm-contact-right { padding-left: 0px;
+    margin-top: -19px; 
+}
 .tm-contact-form { max-width: 488px; }
 
 .tm-contact-form input,
@@ -468,7 +520,7 @@ a:hover figcaption { color: #056767; }
         position: fixed;
         left: 0;
         top: 0;
-        background-color: rgba(56, 204, 204, 0.75);
+        background-color: #0f0c29;
         color: white;
         padding: 10px 15px;
         transition: all 0.3s ease;
@@ -590,3 +642,43 @@ a:hover figcaption { color: #056767; }
     .tm-person img { max-width: 120px; }
 }
 
+.container-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: -20px;
+}
+.footer {
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    margin-top: 60px;
+    max-width: 1100px;
+    margin-bottom: 23px;
+    margin-left: 550px;
+}
+.footer h3 {
+    font-size: 24px;
+    color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.single-post-image{
+    width: 670px;
+    height: 400px;
+}
+
+.footer p {
+    font-size: 16px;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0f0c29;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

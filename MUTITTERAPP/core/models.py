@@ -6,6 +6,7 @@ from .models import CustomUser
 
 
 
+
 User = get_user_model()
 
 
@@ -31,8 +32,6 @@ class Kling(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"
-
-
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -77,3 +76,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Message(models.Model):
+    full_name = models.CharField(max_length=60)
+    email = models.EmailField()
+    subject = models.CharField(max_length=150)
+    message = models.CharField(max_length=700)

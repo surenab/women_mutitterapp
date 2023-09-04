@@ -10,9 +10,20 @@ body {
   font-family: "Jost", sans-serif;
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
-.messages .error {
-  list-style: none; /* This should remove the bullet point */
-  padding-left: 0; /* Remove any padding for cleaner display */
+ul {
+  list-style-type: none;
+}
+.error {
+  color: red;
+  font-weight: italic;
+}
+
+.error p {
+  margin: 5px 0;
+}
+.messages {
+  color: red;
+  font-weight: italic;
 }
 .alert {
   margin-bottom: 20px;

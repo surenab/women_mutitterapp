@@ -26,13 +26,17 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><img class = "logo" src= "{% static 'img/logo.png' %}"> </img></div>
+                <div class="mb-3 mx-auto tm-site-logo">
+                    <a href="{% url 'home' %}" class="logo-link">
+                        <img class = "logo" src= "{% static 'img/logo.png' %}" alt="Cackling Logo"></img> 
+                    </a>
+                </div>
             </div>
             <nav class="tm-nav" id="tm-nav">            
                 <ul>
                     <li class="tm-nav-item active"><a href="{% url 'home' %}" class="tm-nav-link">
                         <i class="fas fa-home"></i>
-                        Blog Home
+                        Home
                     </a></li>
                     {% if request.user.is_authenticated %}
                     <li class="tm-nav-item"><a href="{% url 'create_kling' %}" class="tm-nav-link">
@@ -95,6 +99,24 @@
     {% block bodycontent %} {% endblock %}
         </main>
     </div>
+    {% block footer%}        
+    <footer class="footer">
+        <div class="container-footer mx-auto">
+            <div class="p-5 bg-gray-200 rounded-lg py-12 m-5">
+                <div class="flex flex-col ">
+                    <h3 class="text-3xl leading-10 text-blue-800 w-full text-center font-bold">Sign up to our newsletter to receive updates</h3>
+                </div>
+                <div class="flex flex-row justify-center space-x-3 py-4">
+                    <input class="bg-white rounded-lg text-sm px-2 sm:px-3 md:px-8 py-3" type="text" placeholder="email@email.com">
+                    <input class="font-bold rounded-lg text-white bg-blue-700 hover:bg-blue-600 cursor-pointer px-3 py-1 md:px-6 md:py-3 focus:outline-none"  type="submit" value="subscribe">
+                </div>
+                <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+                    Copyright 2023
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
 </body>
 </html>
     

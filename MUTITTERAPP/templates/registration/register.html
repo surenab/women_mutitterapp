@@ -1,5 +1,15 @@
 {% extends "base_for_register_login.html" %}
 {% block bodycontent %}
 
+{% if form.errors.username %}
+    <div class="error">
+    <p>{{ form.errors.username }}</p></div>
+{% elif form.errors.password1 %}
+    <div class="error">
+    <p>{{ form.errors.password1 }}</p></div>
+{% elif form.errors.password2 %}
+    <div class="error">
+    <p>{{ form.errors.password2 }}</p></div>
+{% endif %}
 
 {% endblock %}
