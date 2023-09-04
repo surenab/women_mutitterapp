@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from .models import Kling
+from .models import Kling,KlingComment
 from django.utils import timezone
 from .models import Message
 
@@ -46,3 +46,9 @@ class MessageForm(forms.ModelForm):
         exclude = ()
 
 
+class KlingCommentForm(forms.ModelForm):
+    text = forms.Textarea()
+
+    class Meta:
+        model = KlingComment
+        fields = ["text"]

@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Kling
+from .models import Kling,KlingComment
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View
-from .forms import KlingForm, MessageForm
+from .forms import KlingForm, MessageForm,KlingCommentForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,6 +10,7 @@ from django_filters.views import FilterView
 from .filters import KlingFilter
 from django.core.paginator import Paginator
 from django.db.models.functions import Length
+from django.shortcuts import get_object_or_404
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -122,5 +123,26 @@ class MessageView(View):
             form.save()
             return redirect('home')  
         return render(request, self.template_name, {'form': form})
+    
+class CreatKlingComment(CreateView):
+    model = KlingComment
+    form_class = KlingCommentForm
+    success_text = "Created!"
+
+    def get_success_url(self) -> str:
+        print("self=",self.request)
+        return reverse_lazy("kling-post", kwargs={"pk": self.request.POST.get("kling")})
+
+    def form_valid(self, form):
+        todo_id = self.request.POST.get("kling")
+        todo = get_object_or_404(Kling, id=kling_id)
+
+        form.instance.kling = kling
+        form.instance.owner = self.request.user
+
+        messages.success(self.request, "Kling Comment instance is created!")
+        return super().form_valid(form)
+    
+
     
     

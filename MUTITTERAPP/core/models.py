@@ -35,3 +35,11 @@ class Message(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=150)
     message = models.CharField(max_length=700)
+    
+class KlingComment(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    todo = models.ForeignKey(Kling, on_delete=models.CASCADE)
+    text = models.TextField(max_length=300)
+
+    def __str__(self) -> str:
+        return f"{self.owner.username} is commneted {self.text}"
