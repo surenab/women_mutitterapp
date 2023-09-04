@@ -13,7 +13,8 @@ urlpatterns = [
     path("about", about, name="about"),
     path("post/<int:pk>>", post, name="post"),
     path("contact",  MessageView.as_view(), name="contact"),
-    path("create-comment", CreatKlingComment.as_view(), name="create_comment")
+    path("create-comment", CreatKlingComment.as_view(), name="create_comment"),
+    
     
 ]
 

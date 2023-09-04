@@ -22,19 +22,22 @@
                         <!-- Comments -->
                         <div>
                             <h2 class="tm-color-primary tm-post-title">Comments</h2>
+                            {% for comment in comments %} 
                             <hr class="tm-hr-primary tm-mb-45">
                             <div class="tm-comment tm-mb-45">
                                 <figure class="tm-comment-figure">
                                     <img src="img/comment-1.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
-                                    <figcaption class="tm-color-primary text-center">Mark Sonny</figcaption>
+                                    <figcaption class="tm-color-primary text-center">{{comment.owner.username}}</figcaption>
+                                    <p class="text-muted small mb-0">
+                                        {{comment.created_on}}
                                 </figure>
                                 <div>
-                                    <p>
-                                        Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
-                                        quis enim feugiat tincidunt et vitae dui. Nullam consectetur
-                                        justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus 
-                                        sapien vel, euismod turpis.
+                                    <p class="mt-3 mb-4 pb-2">
+                                        {{comment.text}}
                                     </p>
+                                    {% endfor %}
+                                    <form action="{% url 'create_comment' %}" method="POST">
+                                {% csrf_token %}
                                     <div class="d-flex justify-content-between">
                                         <a href="#" class="tm-color-primary">REPLY</a>
                                         <span class="tm-color-primary">June 14, 2020</span>
@@ -43,7 +46,7 @@
                             </div>
                             <div class="tm-comment-reply tm-mb-45">
                                 <hr>
-                                <div class="tm-comment">
+                                {% comment %} <div class="tm-comment">
                                     <figure class="tm-comment-figure">
                                         <img src="img/comment-2.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
                                         <figcaption class="tm-color-primary text-center">Jewel Soft</figcaption>    
@@ -55,9 +58,9 @@
                                     </p>
                                 </div>                                
                                 <span class="d-block text-right tm-color-primary">June 21, 2020</span>
-                            </div>
+                            </div> {% endcomment %}
                             <form action="" class="mb-5 tm-comment-form">
-                                <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+                                <h2 class="tm-color-primary tm-post-title mb-4">Post comment</h2>
                                 <div class="mb-4">
                                     <input class="form-control" name="name" type="text">
                                 </div>
