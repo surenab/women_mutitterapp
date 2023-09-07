@@ -108,14 +108,6 @@ class KlingCommentView(View):
             comment.kling = kling
             comment.save()
             return redirect('post', pk=kling.pk)
-        
-        if reply_form.is_valid():
-            reply = reply_form.save(commit=False)
-            reply.author = self.request.user
-            comment_id = request.POST.get('comment_id')  
-            reply.comment = get_object_or_404(KlingComment, id=comment_id)
-            reply.save()
-            return redirect('post', pk=kling.pk)
         else:
             return self.render_to_response(self.get_context_data(form=form))
         
