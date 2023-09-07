@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Kling,KlingComment, KlingReply
+from .models import Kling,KlingComment
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View,DetailView
 from .forms import KlingForm, MessageForm,KlingCommentForm, KlingReplyForm
 from django.urls import reverse_lazy
@@ -10,6 +10,9 @@ from .filters import KlingFilter
 from django.core.paginator import Paginator
 from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+from .forms import UserProfileForm
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -150,5 +153,31 @@ class CreateKlingComment(CreateView):
         queryset = super(Base, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
+    
+@login_required
+def view_profile(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    my_kling_view = MyKling()
+    my_kling_view.request = request  
+    my_kling_view.form_class = KlingForm  
+    my_kling_view.success_url = reverse_lazy("my_klings")  
+    my_kling_view.paginate_by = 4  
+    user_klings = my_kling_view.get_queryset()
+
+    return render(request, 'profile/view_profile.html', {'user_profile': user_profile, 'user_klings': user_klings})
 
 
+@login_required
+def edit_profile(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('view_profile')
+
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'profile/edit_profile.html', {'form': form})

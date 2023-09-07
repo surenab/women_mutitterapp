@@ -1,7 +1,5 @@
-from typing import Any
 from django import forms
-from .models import Kling,KlingComment, KlingReply 
-from django.utils import timezone
+from .models import Kling,KlingComment, KlingReply, UserProfile
 from .models import Message
 
 
@@ -56,3 +54,8 @@ class KlingReplyForm(forms.ModelForm):
     class Meta:
         model = KlingReply
         fields = ['text']
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'profile_picture']

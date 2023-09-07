@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-
 User = get_user_model()
-
 
 class Kling(models.Model):
     KLING_TYPES = (("1", "Hot"), ("2", "Standard"), ("3", "Relaxing"))
@@ -48,3 +46,18 @@ class KlingReply(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
+
+    def __str__(self):
+        return self.user.username
