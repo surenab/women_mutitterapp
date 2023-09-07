@@ -28,8 +28,6 @@ class Kling(models.Model):
     def __str__(self) -> str:
         return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"
 
-
-
 class Message(models.Model):
     full_name = models.CharField(max_length=60)
     email = models.EmailField()
@@ -38,8 +36,15 @@ class Message(models.Model):
     
 class KlingComment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    todo = models.ForeignKey(Kling, on_delete=models.CASCADE)
+    kling = models.ForeignKey(Kling, on_delete=models.CASCADE)
     text = models.TextField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.owner.username} is commneted {self.text}"
+        return f"{self.owner.username} commented {self.text}"
+    
+class KlingReply(models.Model):
+    comment = models.ForeignKey(KlingComment, on_delete=models.CASCADE, related_name='replies')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

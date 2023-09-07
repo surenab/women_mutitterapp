@@ -1,8 +1,7 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Kling,KlingComment
-from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View
-from .forms import KlingForm, MessageForm,KlingCommentForm
+from .models import Kling,KlingComment, KlingReply
+from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View,DetailView
+from .forms import KlingForm, MessageForm,KlingCommentForm, KlingReplyForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,13 +38,6 @@ class MyKling(ListView):
         queryset = super(MyKling, self).get_queryset().order_by('-created_on')
         queryset = queryset.filter(user=self.request.user)
         return queryset
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        klings = context['klings']
-        for kling in klings:
-            kling.text = ' '.join(kling.text.split()[:50])
-        return context
 
 class MyKlingUpdate(LoginRequiredMixin, UpdateView):
     model = Kling
@@ -92,15 +84,41 @@ class Home(FilterView):
 def about(request):
     return render(request, 'about.html')
 
-def post(request, pk):
-    try:
-        kling = Kling.objects.get(pk=pk)
-    except Kling.DoesNotExist:
-        return HttpResponse("Post not found.", status=404)
-    context = {
-        'kling': kling,}
-    return render(request, 'post.html', context)
+class KlingDetailview(DetailView):
+    model = Kling
+    template_name = "post.html"
+    context_object_name = "kling"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        Kling = self.get_object()
+        context['comments'] = KlingComment.objects.filter(kling=Kling)
+        context['comment_form'] = KlingCommentForm
+        context['reply_form'] = KlingReplyForm() 
+        return context
+
+class KlingCommentView(View):
+    def post(self, request, pk):
+        kling = get_object_or_404(Kling, pk=pk)
+        form = KlingCommentForm(request.POST)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.owner = self.request.user
+            comment.kling = kling
+            comment.save()
+            return redirect('post', pk=kling.pk)
+        
+        if reply_form.is_valid():
+            reply = reply_form.save(commit=False)
+            reply.author = self.request.user
+            comment_id = request.POST.get('comment_id')  
+            reply.comment = get_object_or_404(KlingComment, id=comment_id)
+            reply.save()
+            return redirect('post', pk=kling.pk)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+        
 def kling_list(request):
     klings = Kling.objects.all() 
     paginator = Paginator(klings, per_page=10)
@@ -124,26 +142,21 @@ class MessageView(View):
             return redirect('home')  
         return render(request, self.template_name, {'form': form})
     
-class CreatKlingComment(CreateView):
+class CreateKlingComment(CreateView):
     model = KlingComment
-    form_class = KlingCommentForm
-    success_text = "Created!"
+    form_class= KlingCommentForm
+    success_text="Created!"
 
     def get_success_url(self) -> str:
-        print("self=",self.request)
-        return reverse_lazy("kling-post", kwargs={"pk": self.request.POST.get("kling")})
-
+        return reverse_lazy("post", kwargs ={"pk": self.request.POST.get("Kling")})
+    
     def form_valid(self, form):
-        todo_id = self.request.POST.get("kling")
-        todo = get_object_or_404(Kling, id=kling_id)
-
-        form.instance.kling = kling
         form.instance.owner = self.request.user
-
-        messages.success(self.request, "Kling Comment instance is created!")
+        messages.success(self.request, "Kling comment created!")
         return super().form_valid(form)
-    
+    def get_queryset(self):
+        queryset = super(Base, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
 
 
-    
-    
