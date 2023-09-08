@@ -130,7 +130,7 @@ class CreatKlingComment(CreateView):
     success_text = "Created!"
 
     def get_success_url(self) -> str:
-        print("self=",self.request)
+        print("self=",self.request.POST.get("kling"))
         return reverse_lazy("kling-post", kwargs={"pk": self.request.POST.get("kling")})
 
     def form_valid(self, form):
