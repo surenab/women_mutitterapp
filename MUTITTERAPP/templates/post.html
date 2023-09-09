@@ -18,9 +18,7 @@
                             <p>{{kling.text}}</p>
                             <span class="d-block text-right tm-color-primary">{{ kling.kling_category }}</span>
                         </div>
-                        <!-- Comments -->
                         <div>
-                            <h2 class="tm-color-primary tm-post-title">Comments</h2>
                             {% for comment in comments %} 
                             <hr class="tm-hr-primary tm-mb-45">
                             <div class="tm-comment tm-mb-45">
@@ -54,6 +52,16 @@
                             </div>
                             {% endfor %}
                             {% endfor %}
+                            {% if user_klings %}
+                            
+                                <td>
+                                    <a type="button" class="btn btn-success" href="{% url 'my-kling-update'  kling.id %}"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
+                                            class="far fa-trash-alt"></i></a>
+                                </td>
+                            
+                            {% endif %}
                             <form action = "{% url 'kling-comment' pk=kling.pk %}" method="POST" class="mb-5 tm-comment-form">   
                             {% csrf_token %}
                                 <input type="hidden" name="Kling_id" value="{{ kling.pk }}">  

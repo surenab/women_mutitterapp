@@ -34,19 +34,18 @@ class MyKling(ListView):
     model = Kling
     context_object_name = "klings"
     form_class = KlingForm
-    success_url = reverse_lazy("my_klings")
+    success_url = reverse_lazy("profile")
     paginate_by = 4
 
     def get_queryset(self):
-        queryset = super(MyKling, self).get_queryset().order_by('-created_on')
-        queryset = queryset.filter(user=self.request.user)
+        queryset = Kling.objects.filter(user=self.request.user)
         return queryset
 
 class MyKlingUpdate(LoginRequiredMixin, UpdateView):
     model = Kling
     context_object_name = "kling"
     form_class = KlingForm
-    success_url = reverse_lazy("my_klings")
+    success_url = reverse_lazy("profile")
 
     def get_queryset(self):
         queryset = super(MyKlingUpdate, self).get_queryset()
@@ -60,7 +59,7 @@ class MyKlingUpdate(LoginRequiredMixin, UpdateView):
 class MyKlingDelete(LoginRequiredMixin, DeleteView):
     model = Kling
     context_object_name = "kling"
-    success_url = reverse_lazy("my_klings")
+    success_url = reverse_lazy("profile")
 
     def get_queryset(self):
         queryset = super(MyKlingDelete, self).get_queryset()
@@ -76,13 +75,6 @@ class Home(FilterView):
     def get_queryset(self):
         queryset = Kling.objects.order_by('-created_on')
         return queryset.annotate(text_length=Length('text'))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        klings = context['klings']
-        for kling in klings:
-            kling.text = ' '.join(kling.text.split()[:50])
-        return context
 
 def about(request):
     return render(request, 'about.html')
@@ -160,7 +152,7 @@ def view_profile(request):
     my_kling_view = MyKling()
     my_kling_view.request = request  
     my_kling_view.form_class = KlingForm  
-    my_kling_view.success_url = reverse_lazy("my_klings")  
+    my_kling_view.success_url = reverse_lazy("profile")  
     my_kling_view.paginate_by = 4  
     user_klings = my_kling_view.get_queryset()
 

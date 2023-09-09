@@ -25,6 +25,12 @@ class Kling(models.Model):
 
     def __str__(self) -> str:
         return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"
+    
+    def comment_count(self):
+        return self.klingcomment_set.count()
+    
+    class Meta:
+        ordering = ['-created_on']
 
 class Message(models.Model):
     full_name = models.CharField(max_length=60)

@@ -33,7 +33,12 @@ hr {
 .form-control::-webkit-input-placeholder { color: #999; }  
 .form-control:-ms-input-placeholder { color: #999; }  
 .form-control::placeholder { color: #999; }
-
+.container{
+    margin-top: -55px;
+    width: auto;
+    margin-left: -15px;
+    
+}
 .tm-header {
     background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
     color: white;
@@ -81,10 +86,6 @@ hr {
 .tm-main {
     margin-left: 400px;
     padding: 80px 100px 25px;
-}
-
-.tm-row {
-    justify-content: space-between;
 }
 
 .tm-nav { margin-bottom: 100px; }
@@ -191,6 +192,10 @@ ul {
     height: 300px; 
     object-fit: cover;
 }
+.kling-image-self {
+    height: 220px;
+    object-fit: cover;
+}
 .kling-title {
     color: #463399;
     font-size: 32px;
@@ -258,7 +263,7 @@ ul {
 
 .tm-post { 
     margin-bottom: 75px;     
-    padding-right: 50px; }
+    padding-right: 33px; }
 .tm-post:hover {
     transform: translateY(-5px);
 }
@@ -270,10 +275,22 @@ ul {
     color: white;
     padding: 5px 20px;
 }
+.tm-new-badge-self {
+    top: -8px;
+    right: 25px;
+    background-color: #573b8a;
+    color: white;
+    padding: 5px 20px;
+}
 
 .tm-post-title {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     transition: all 0.3s ease;
+}
+.tm-post-title-self {
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    margin-top: 20px;
 }
 
 .tm-h3 {
@@ -459,7 +476,7 @@ a:hover figcaption { color: #056767; }
 .tm-social-links li a:hover i.fa-youtube { color: #c4302b; }
 .tm-social-links li a:hover i.fa-instagram { color: #3f729b; }
 
-.tm-contact-right { padding-left: 0px;
+.tm-contact-right { padding-left: 120px;
     margin-top: -19px; 
 }
 .tm-contact-form { max-width: 488px; }

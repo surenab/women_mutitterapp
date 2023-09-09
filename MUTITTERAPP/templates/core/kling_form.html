@@ -7,6 +7,6 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" >MY Kling Update</button>
-            <a href="{% url 'my_klings' %}" class="btn btn-outline">Cancel</a>
+            <a href="{% url 'profile' %}" class="btn btn-outline">Cancel</a>
         </form>
 {% endblock %}

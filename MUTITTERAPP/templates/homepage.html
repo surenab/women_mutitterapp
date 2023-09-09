@@ -47,7 +47,7 @@
                         <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{kling.title}}</h2>
                     </a>                    
                     <p class="tm-pt-30">
-                        <a rel="nofollow" href="https://templatemo.com/tm-553-xtra-blog" target="_blank"></a>{{kling.text}}
+                        <a rel="nofollow" target="_blank"></a>{{kling.text|truncatewords_html:30}}
                     </p>
                     <div class="d-flex justify-content-between tm-pt-45">
                         <span class="tm-color-primary">{{kling.category}}</span>
@@ -55,7 +55,7 @@
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
-                        <span>48 comments</span>
+                        <span>{{ kling.comment_count }}  comments </span>
                         <span>{{kling.user}}</span>
                     </div>
                 </article>

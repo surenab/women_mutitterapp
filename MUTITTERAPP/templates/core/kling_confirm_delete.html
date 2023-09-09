@@ -7,10 +7,10 @@
     <form method="post" class="card">
         {% csrf_token %}
         <h2>Delete KLING</h2>
-        <p>Are you sure that you want to delete "{{ todo.id }}"?</p>
+        <p>Are you sure that you want to delete "{{ kling.id }}"?</p>
         <p class="form-buttons">
             <input type="submit" class="btn btn-primary" value="Delete" />
-            <a href="{% url 'my_klings' %}" class="btn btn-outline">Cancel</a>
+            <a href="{% url 'profile' %}" class="btn btn-outline">Cancel</a>
         </p>
     </form>
 </div>
