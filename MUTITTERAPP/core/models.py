@@ -3,6 +3,13 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
+class Tag(models.Model):
+    name =models.CharField(max_length=20 , unique=True)
+    
+    def __str__(self) -> str:
+        return self.name
+
 class Kling(models.Model):
     KLING_TYPES = (("1", "Hot"), ("2", "Standard"), ("3", "Relaxing"))
     KLING_CATEGORY = (
@@ -22,6 +29,8 @@ class Kling(models.Model):
     kling_type = models.CharField(choices=KLING_TYPES, default="2", max_length=1)
     kling_category = models.CharField(choices=KLING_CATEGORY, max_length=22)
     image = models.ImageField(upload_to="media/", default=None, null=True, blank=True)
+    
+    tags=models.ManyToManyField(Tag)
 
     def __str__(self) -> str:
         return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"

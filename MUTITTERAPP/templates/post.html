@@ -17,6 +17,9 @@
                             <p class="tm-mb-40">{{ kling.created_on }} by {{ kling.user }}</p>
                             <p>{{kling.text}}</p>
                             <span class="d-block text-right tm-color-primary">{{ kling.kling_category }}</span>
+                            {%for tag in kling.tags.all %}
+                            Tag: {{tag.name}}
+                            {% endfor %}
                         </div>
                         <div>
                             {% for comment in comments %} 
