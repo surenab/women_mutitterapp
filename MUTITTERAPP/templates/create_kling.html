@@ -1,5 +1,5 @@
 {% extends 'base_core.html' %}
-{% load static %}
+{% load static %}, 
 {% block bodycontent %}
         <h1 class="kling-title">Create your Kling</h1>
         <br>
@@ -29,22 +29,20 @@
               <textarea name="text"  rows="5" class="form-control" required="" id="id_text" placeholder="My Fairy Kling is about ..."></textarea>
             </p>
             <p>
-              <label for="id_kling_types">Kling types:</label>
-              <select name="kling_types" id="id_kling_types" class="form-control">
-              <option value="1">Hot</option>
-              <option value="2">Standard</option>
-              <option value="3">Relaxing</option>
-              </select>
-            </p>
-            <p>
               <div class="custom-file">
               <label for="id_image" class="custom-file-label">Select your image:</label>
               <input type="file" name="image" accept="image/*" required="" id="id_image" class="custom-file-input">
-              <div id="selectedImageName"></div>
+              <div id="selectedImageName">{{ image.name }}</div>
               </div>
             </p>
             <p>
                 <button class="btn btn-primary" type="submit" value="Submit">Submit Kling</button>
           </form>
         </div>
+        <script>
+          function displayImageName(input) {
+              var fileName = input.files[0] ? input.files[0].name : 'No file selected';
+              document.getElementById('selectedImageName').textContent = 'Selected Image: ' + fileName;
+          }
+      </script>
 {% endblock %}

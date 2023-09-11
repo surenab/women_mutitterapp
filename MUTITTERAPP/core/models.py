@@ -24,7 +24,7 @@ class Kling(models.Model):
     image = models.ImageField(upload_to="media/", default=None, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"
+        return f"{self.user} , {self.title}, {self.text}, {self.kling_category}, {self.created_on}"
     
     def comment_count(self):
         return self.klingcomment_set.count()
