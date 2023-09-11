@@ -1,126 +1,125 @@
 {% extends 'base_core.html' %}
 {% load static %}
 {% block bodycontent %} 
-    <div class="container">
-        <div class="main-body">
-            <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                        <div class="mt-3">
-                            <h4>{{ user_profile.user.first_name }} {{ user_profile.user.last_name }}</h4>
-                            <p class="text-secondary mb-1"> username: {{ user_profile.user.username }}</p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                        <div class="row">
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                            {{ user_profile.user.email }}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <h6 class="mb-0">Phone</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                            (239) 816-9029
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <h6 class="mb-0">Mobile</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                            (320) 380-4539
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                            Bay Area, San Francisco, CA
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                            <a class="btn btn-info " target="__blank" href="{% url 'edit_profile' %}">Edit</a>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- <div class="user-profile">
-        <h3>{{ user_profile.user.username }}</h3>
-        <div class="user-bio">
-            <p>{{ user_profile.bio }}</p>
-        </div>
-    {% if user_profile.profile_picture %}
-        <div class="user-profile-picture">
-            <img src="{{ user_profile.profile_picture.url }}" alt="{{ user_profile.user.username }}">
-        </div>
-    {% endif %}
-        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-    </div> -->
-    <h2>Your Klings</h2>
-        <div class="row tm-row">
-            {% for kling in user_klings %}
-            <article class="col-12֊self">
-                <hr class="tm-hr-primary">
-                <div class="row">   
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container emp-profile">
+            <form method="post">
+                <div class="row">
                     <div class="col-md-4">
-                        <a href="{% url 'post' kling.id %}" class="effect-lily tm-post-link tm-pt-60">
-                            <div class=" tm-post-link-inner">
-                                {% if kling.image %}
-                                    <img class="kling-image-self" src="{{ kling.image.url }}">
-                                {% endif %}
+                        <div class="profile-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
                             </div>
-                        </a> 
-                    </div>
-                    <div class="col-md-8-self">
-                        <span class="position-absolute tm-new-badge-self">{{kling.get_kling_type_display}}</span>
-                        <h2 class="tm-pt-30 tm-color-primary tm-post-title-self">{{kling.title}}</h2>
-                        <p class="tm-pt-30">
-                            <a rel="nofollow" href="https://templatemo.com/tm-553-xtra-blog" target="_blank"></a>{{kling.text|truncatewords_html:40}}
-                        </p>
-                        <div class="d-flex justify-content-between tm-pt-45">
-                            <span class="tm-color-primary">{{kling.category}}</span>
-                            <span class="tm-color-primary">{{kling.created_on|timesince}} ago</span>
                         </div>
-                        <hr>
-                        <div class="d-flex justify-content-between">
-                            <span>{{ kling.comment_count }}  comments</span>
-                            <span>{{kling.user}}</span>
-                            <td>
-                                <a type="button" class="btn btn-success" href="{% url 'my-kling-update'  kling.id %}"><i
-                                        class="fas fa-edit"></i></a>
-                                <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
-                                        class="far fa-trash-alt"></i></a>
-                            </td>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        Kshiti Ghelani
+                                    </h5>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="profile-edit-btn" target="__blank" href="{% url 'edit_profile' %}">Edit Profile</a>              
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                       
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p> {{ user_profile.user.username }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ user_profile.user.first_name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ user_profile.user.email }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>123 456 7890</p>
+                                            </div>
+                                        </div>
+                            </div>
+                            <h2>My Klings</h2>
+                    <div class="row tm-row">
+                        {% for kling in user_klings %}
+                        <article class="col-12֊self">
+                            <hr class="tm-hr-primary">
+                            <div class="row">   
+                                <div class="col-md-4">
+                                    <a href="{% url 'post' kling.id %}" class="effect-lily tm-post-link tm-pt-60">
+                                        <div class=" tm-post-link-inner">
+                                            {% if kling.image %}
+                                                <img class="kling-image-self" src="{{ kling.image.url }}">
+                                            {% endif %}
+                                        </div>
+                                    </a> 
+                                </div>
+                                <div class="col-md-8-self">
+                                    <span class="position-absolute tm-new-badge-self">{{kling.get_kling_type_display}}</span>
+                                    <h2 class="tm-pt-30 tm-color-primary tm-post-title-self">{{kling.title}}</h2>
+                                    <p class="tm-pt-30">
+                                        <a rel="nofollow" href="https://templatemo.com/tm-553-xtra-blog" target="_blank"></a>{{kling.text|truncatewords_html:40}}
+                                    </p>
+                                    <div class="d-flex justify-content-between tm-pt-45">
+                                        <span class="tm-color-primary">{{kling.category}}</span>
+                                        <span class="tm-color-primary">{{kling.created_on|timesince}} ago</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <span>{{ kling.comment_count }}  comments</span>
+                                        <span>{{kling.user}}</span>
+                                        <td>
+                                            <a type="button" class="btn btn-success" href="{% url 'my-kling-update'  kling.id %}"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
+                                                    class="far fa-trash-alt"></i></a>
+                                        </td>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor%}
+                    </div> 
                         </div>
                     </div>
                 </div>
-            </article>
-            {% endfor%}
-        </div> 
+            </form>           
+        </div>
 {% include 'pagination.html' %}
 {% endblock %}
