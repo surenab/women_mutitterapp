@@ -12,7 +12,10 @@ from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from .forms import UserProfileForm
+from .forms import UserProfileForm, SubscriberForm
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -173,3 +176,20 @@ def edit_profile(request):
         form = UserProfileForm(instance=user_profile)
 
     return render(request, 'profile/edit_profile.html', {'form': form})
+
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            subscriber = form.save()
+            subject = 'Thanks for subscribing to Cackling'
+            message = render_to_string('confirmation_email.html', {'subscriber': subscriber})
+            plain_message = strip_tags('Tahnk You! You have subscribed to Cackling newsletter!')
+            from_email = 'klingcackling@gmail.com '
+            recipient_list = [subscriber.email]
+            send_mail(subject, plain_message, from_email, recipient_list, html_message=message)
+            messages.success(request, 'Thank you for subscribing! A confirmation email has been sent to your inbox.')
+            return redirect('home')
+    else:   
+        form = SubscriberForm()
+    return render(request, 'base_core.html', {'form': form})
