@@ -16,7 +16,7 @@ urlpatterns = [
     path("contact",  MessageView.as_view(), name="contact"),
     path('profile/', view_profile, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
-    path('', subscribe, name='subscribe')
+    path('subscribe/', subscribe, name='subscribe')
     
     
 ]
