@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, CreateKling,MyKlingUpdate,MyKlingDelete,MessageView, about, KlingDetailview, KlingCommentView, CreateKlingComment, edit_profile, view_profile
+from .views import Home, CreateKling,MyKlingUpdate,MyKlingDelete,MessageView, about, KlingDetailview, KlingCommentView, CreateKlingComment, edit_profile, view_profile, subscribe
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -16,6 +16,7 @@ urlpatterns = [
     path("contact",  MessageView.as_view(), name="contact"),
     path('profile/', view_profile, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
+    path('', subscribe, name='subscribe')
     
     
 ]

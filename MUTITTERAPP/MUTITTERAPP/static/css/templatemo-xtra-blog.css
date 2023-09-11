@@ -374,7 +374,7 @@ ul {
     padding-right: 15px;
 }
 
-.tm-copyright { text-align: right; }
+.tm-copyright { text-align: right; margin-left: 200px}
 
 /* Single Post page */
 hr.tm-hr-primary { border-top: 5px solid #3d387c; }

@@ -1,6 +1,6 @@
 from django import forms
 from .models import Kling,KlingComment, KlingReply, UserProfile
-from .models import Message
+from .models import Message, SubscribedUsers
 
 
 class KlingForm(forms.ModelForm):
@@ -59,3 +59,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['user', 'profile_picture']
+
+class SubscriberForm(forms.ModelForm):
+    class Meta:
+        model = SubscribedUsers
+        fields = ['email']

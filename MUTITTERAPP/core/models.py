@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -67,3 +68,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class SubscribedUsers(models.Model):
+    email = models.EmailField(unique=True, max_length=100)
+    subscribed_date = models.DateTimeField('Date created', default=timezone.now)
+
+    def __str__(self):
+        return self.email

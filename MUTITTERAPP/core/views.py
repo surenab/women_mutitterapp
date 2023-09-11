@@ -12,7 +12,7 @@ from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from .forms import UserProfileForm
+from .forms import UserProfileForm, SubscriberForm
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -173,3 +173,14 @@ def edit_profile(request):
         form = UserProfileForm(instance=user_profile)
 
     return render(request, 'profile/edit_profile.html', {'form': form})
+
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Thank you for subscribing!')
+            return redirect('home')  
+    else:
+        form = SubscriberForm()
+    return render(request, 'base_core.html', {'form': form})
