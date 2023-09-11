@@ -12,10 +12,6 @@ body {
 
 .logo-link {
     display: inline-block;
-    padding: 10px;
-    border: 2px solid #573b8a;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -67,19 +63,14 @@ hr {
 
 .tm-site-header {
     margin-top: 30px;
-    margin-bottom: 85px;
+    margin-bottom: 55px;
 }
 
-.tm-site-logo {
-    width: 330px;
-    height: 220px;
-    border-radius: 50%;
-    background-color: white;    
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.logo {
+    margin-left: 5px;
+    border-radius: 167px;
+    width: 300px;
 }
-
 
 .tm-site-logo i { color: #573b8a; }
 
@@ -139,6 +130,7 @@ hr {
 ul { 
     margin: 0; 
     padding: 0;
+    margin-bottom: 65px;
 }
 
 .tm-nav { margin-left: -30px; }
@@ -400,6 +392,12 @@ video {
     height: 50px;
     border-color: rgb(65, 20, 116);
     border-radius: 100;
+}
+.form-control-comment {
+    height: 150px;
+    width: 600px;
+    border-color: rgb(65, 20, 116);
+    border-radius: 5px;
 }
 
 .tm-comment-form { max-width: 360px; }
