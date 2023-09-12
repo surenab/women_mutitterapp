@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, CreateKling,MyKlingUpdate,MyKlingDelete,MessageView, about, KlingDetailview, KlingCommentView, CreateKlingComment, edit_profile, view_profile, subscribe
+from .views import Home, CreateKling,MyKlingUpdate,MyKlingDelete,MessageView, about, KlingDetailview, KlingCommentView,CommentReplyView, CreateKlingComment, edit_profile, view_profile, subscribe
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path("about/", about, name="about"),
     path("kling/<int:pk>/", KlingDetailview.as_view(), name="post"),
     path('kling/<int:pk>/comment/', KlingCommentView.as_view(), name='kling-comment'),
+    path('kling-comment-reply/<int:comment_id>/', CommentReplyView.as_view(), name='kling-comment-reply'),
     path("create-comment/", CreateKlingComment.as_view(), name="create_comment"),
     path("contact/",  MessageView.as_view(), name="contact"),
     path('profile/', view_profile, name='profile'),

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Kling, Message,KlingComment, SubscribedUsers
+from .models import Kling, Message,KlingComment, CommentReply, SubscribedUsers
 
 # Register your models here.
 class KlingCommentAdmin(admin.ModelAdmin):
@@ -9,5 +9,6 @@ class KlingCommentAdmin(admin.ModelAdmin):
 admin.site.register(Kling)
 admin.site.register(Message)
 admin.site.register(KlingComment)
+admin.site.register(CommentReply)
 admin.site.register(SubscribedUsers)
 

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Kling,KlingComment, KlingReply, UserProfile
+from .models import Kling,KlingComment, CommentReply, UserProfile
 from .models import Message, SubscribedUsers
 
 
@@ -81,10 +81,10 @@ class KlingCommentForm(forms.ModelForm):
         model = KlingComment
         fields = ["text"]
 
-class KlingReplyForm(forms.ModelForm):
+class CommentReplyForm(forms.ModelForm):
     comment_id = forms.IntegerField(widget=forms.HiddenInput())
     class Meta:
-        model = KlingReply
+        model = CommentReply
         fields = ['text']
 
 class UserProfileForm(forms.ModelForm):
