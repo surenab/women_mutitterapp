@@ -151,3 +151,11 @@ MESSAGE_TAGS = {
     constants.DEBUG: 'alert-light',
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'klingcackling@gmail.com'
+EMAIL_HOST_PASSWORD = 'gnluuohhizfynhzj'
+EMAIL_DEBUG = True

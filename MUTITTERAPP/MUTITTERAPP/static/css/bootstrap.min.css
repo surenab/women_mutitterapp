@@ -706,7 +706,7 @@ pre code {
 
 .col,
 .col-1,
-.col-10,
+.col-10,    
 .col-11,
 .col-12,
 .col-2,
@@ -5835,10 +5835,10 @@ a.badge-dark:focus {
 .alert {
     position: relative;
     padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
+     margin-bottom: 1rem;
     border: 1px solid transparent;
-    border-radius: .25rem
-}
+    border-radius: .25rem 
+} 
 
 .alert-heading {
     color: inherit

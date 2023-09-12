@@ -53,21 +53,19 @@
                             {% endfor %}
                             {% endfor %}
                             {% if user_klings %}
-                            
                                 <td>
                                     <a type="button" class="btn btn-success" href="{% url 'my-kling-update'  kling.id %}"><i
                                             class="fas fa-edit"></i></a>
                                     <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
                                             class="far fa-trash-alt"></i></a>
                                 </td>
-                            
                             {% endif %}
                             <form action = "{% url 'kling-comment' pk=kling.pk %}" method="POST" class="mb-5 tm-comment-form">   
                             {% csrf_token %}
                                 <input type="hidden" name="Kling_id" value="{{ kling.pk }}">  
                                 <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
                                 <div class="mb-4">
-                                    <textarea class="form-control" name="text" rows="6"></textarea>
+                                    <textarea class="form-control-comment" name="text" rows="6"></textarea>
                                 </div>
                                 <div class="text-right">
                                     <button type="submit" class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        

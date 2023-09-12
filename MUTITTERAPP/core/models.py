@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -24,7 +25,7 @@ class Kling(models.Model):
     image = models.ImageField(upload_to="media/", default=None, null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"{self.user} , {self.title}, {self.kling_category}, {self.created_on}"
+        return f"{self.user} , {self.title}, {self.text}, {self.kling_category}, {self.created_on}"
     
     def comment_count(self):
         return self.klingcomment_set.count()
@@ -67,3 +68,10 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+class SubscribedUsers(models.Model):
+    email = models.EmailField(unique=True, max_length=100)
+    subscribed_date = models.DateTimeField('Date created', default=timezone.now)
+
+    def __str__(self):
+        return self.email

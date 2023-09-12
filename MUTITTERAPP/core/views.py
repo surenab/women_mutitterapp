@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import Kling,KlingComment
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View,DetailView
 from .forms import KlingForm, MessageForm,KlingCommentForm, KlingReplyForm
@@ -12,7 +13,10 @@ from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from .forms import UserProfileForm
+from .forms import UserProfileForm, SubscriberForm
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 class Base(LoginRequiredMixin):
     def get_queryset(self):
@@ -29,6 +33,18 @@ class CreateKling(CreateView):
         form.instance.user = self.request.user
         messages.success(self.request,"Klinged succesfully!")
         return super().form_valid(form)
+
+def image_view(request):
+ 
+    if request.method == 'POST':
+        form = KlingForm(request.POST, request.FILES)
+ 
+        if form.is_valid():
+            form.save()
+            return redirect('create_kling')
+    else:
+        form = KlingForm()
+    return render(request, 'create_kling.html', {'form': form})    
 
 class MyKling(ListView):
     model = Kling
@@ -67,15 +83,37 @@ class MyKlingDelete(LoginRequiredMixin, DeleteView):
         return queryset
 
 class Home(FilterView):
-    context_object_name = "klings"
+    model = Kling
+    context_object_name = 'klings'
     filterset_class = KlingFilter
     template_name = "homepage.html"
     paginate_by = 6
-    
+
     def get_queryset(self):
         queryset = Kling.objects.order_by('-created_on')
         return queryset.annotate(text_length=Length('text'))
 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = KlingFilter()  # Create an instance of KlingFilter without data
+        return context
+
+    def post(self, request, *args, **kwargs):
+        filter = KlingFilter(request.POST)
+        klings = self.filter_queryset(self.get_queryset())
+
+        if filter.is_valid():
+            # Access form data directly from the 'filter' instance
+            if filter.cleaned_data['title_text']:
+                klings = klings.filter(title_text__icontains=filter.cleaned_data['title_text'])
+            if filter.cleaned_data['kling_category']:
+                klings = klings.filter(kling_category__icontains=filter.cleaned_data['kling_category'])
+
+        context = self.get_context_data(filter=filter, klings=klings)
+        return self.render_to_response(context)
+
+    
 def about(request):
     return render(request, 'about.html')
 
@@ -173,3 +211,20 @@ def edit_profile(request):
         form = UserProfileForm(instance=user_profile)
 
     return render(request, 'profile/edit_profile.html', {'form': form})
+
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            subscriber = form.save()
+            subject = 'Thanks for subscribing to Cackling'
+            message = render_to_string('confirmation_email.html', {'subscriber': subscriber})
+            plain_message = strip_tags('Tahnk You! You have subscribed to Cackling newsletter!')
+            from_email = 'klingcackling@gmail.com '
+            recipient_list = [subscriber.email]
+            send_mail(subject, plain_message, from_email, recipient_list, html_message=message)
+            messages.success(request, 'Thank you for subscribing! A confirmation email has been sent to your inbox.')
+            return redirect('home')
+    else:   
+        form = SubscriberForm()
+    return render(request, 'base_core.html', {'form': form})
