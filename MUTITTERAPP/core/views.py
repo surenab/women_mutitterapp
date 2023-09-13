@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Kling,KlingComment
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View,DetailView
-from .forms import KlingForm, MessageForm,KlingCommentForm, KlingReplyForm
+from .forms import KlingForm, MessageForm,KlingCommentForm, UserProfileForm, SubscriberForm, CommentReplyForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,7 +13,6 @@ from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from .forms import UserProfileForm, SubscriberForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -127,7 +126,7 @@ class KlingDetailview(DetailView):
         Kling = self.get_object()
         context['comments'] = KlingComment.objects.filter(kling=Kling)
         context['comment_form'] = KlingCommentForm
-        context['reply_form'] = KlingReplyForm() 
+        context['reply_form'] = CommentReplyForm() 
         return context
 
 class KlingCommentView(View):
@@ -144,6 +143,20 @@ class KlingCommentView(View):
         else:
             return self.render_to_response(self.get_context_data(form=form))
         
+class CommentReplyView(View):
+    def post(self, request, comment_id):
+        comment = get_object_or_404(KlingComment, pk=comment_id)
+        form = CommentReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.author = self.request.user
+            reply.comment = comment
+            reply.save()
+            return redirect('post', pk=comment.kling.pk)
+        else:
+            return HttpResponse("Form validation failed", status=400) 
+
+
 def kling_list(request):
     klings = Kling.objects.all() 
     paginator = Paginator(klings, per_page=10)
@@ -195,7 +208,6 @@ def view_profile(request):
     user_klings = my_kling_view.get_queryset()
 
     return render(request, 'profile/view_profile.html', {'user_profile': user_profile, 'user_klings': user_klings})
-
 
 @login_required
 def edit_profile(request):

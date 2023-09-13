@@ -48,7 +48,7 @@ class KlingComment(models.Model):
     def __str__(self) -> str:
         return f"{self.owner.username} commented {self.text}"
     
-class KlingReply(models.Model):
+class CommentReply(models.Model):
     comment = models.ForeignKey(KlingComment, on_delete=models.CASCADE, related_name='replies')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
