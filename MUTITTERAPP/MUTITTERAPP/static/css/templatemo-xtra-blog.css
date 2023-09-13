@@ -440,7 +440,7 @@ video {
 .tm-comment-form { max-width: 360px; }
 .tm-category-list { list-style-type: none; }
 figure { margin: 0; }
-figcaption { line-height: 1.4; }
+figcaption { line-height: 1.4; margin-top: 20px }
 
 .tm-post-full { max-width: 600px; }
 
