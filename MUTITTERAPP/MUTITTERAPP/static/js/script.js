@@ -77,4 +77,33 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
     });
 });
+function toggleReplyForm(commentId) {
+    var replyForm = document.getElementById('reply-form-' + commentId);
+    if (replyForm.style.display === 'none' || !replyForm.style.display) {
+        replyForm.style.display = 'block';
+    } else {
+        replyForm.style.display = 'none';
+    }
+    }
+
+    function cancelReplyForm(commentId) {
+    var replyForm = document.getElementById('reply-form-' + commentId);
+    replyForm.style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+    const replyLinks = document.querySelectorAll('.reply-link');
+
+    replyLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-comment-id');
+            const replyForm = document.getElementById('reply-form-' + commentId);
+
+            if (replyForm.style.display === 'none' || !replyForm.style.display) {
+                replyForm.style.display = 'block';
+            } else {
+                replyForm.style.display = 'none';
+            }
+        });
+    });
+});
 

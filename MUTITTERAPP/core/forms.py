@@ -82,10 +82,12 @@ class KlingCommentForm(forms.ModelForm):
         fields = ["text"]
 
 class CommentReplyForm(forms.ModelForm):
-    comment_id = forms.IntegerField(widget=forms.HiddenInput())
     class Meta:
         model = CommentReply
         fields = ['text']
+        widgets = {
+            'text': forms.Textarea(attrs={'required': 'required'})
+        }
 
 class UserProfileForm(forms.ModelForm):
     class Meta:

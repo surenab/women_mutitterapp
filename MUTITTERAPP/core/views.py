@@ -147,7 +147,6 @@ class CommentReplyView(View):
     def post(self, request, comment_id):
         comment = get_object_or_404(KlingComment, pk=comment_id)
         form = CommentReplyForm(request.POST)
-
         if form.is_valid():
             reply = form.save(commit=False)
             reply.author = self.request.user
@@ -155,11 +154,7 @@ class CommentReplyView(View):
             reply.save()
             return redirect('post', pk=comment.kling.pk)
         else:
-
-            # Print form errors for debugging
-            print(form.errors)
-            # Handle form validation errors here
-            return HttpResponse("Form validation failed", status=400)  # Return an error response
+            return HttpResponse("Form validation failed", status=400) 
 
 
 def kling_list(request):
