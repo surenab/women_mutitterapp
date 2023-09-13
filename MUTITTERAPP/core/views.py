@@ -34,10 +34,8 @@ class CreateKling(CreateView):
         return super().form_valid(form)
 
 def image_view(request):
- 
     if request.method == 'POST':
         form = KlingForm(request.POST, request.FILES)
- 
         if form.is_valid():
             form.save()
             return redirect('create_kling')
@@ -95,7 +93,7 @@ class Home(FilterView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter'] = KlingFilter()  # Create an instance of KlingFilter without data
+        context['filter'] = KlingFilter()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -103,7 +101,6 @@ class Home(FilterView):
         klings = self.filter_queryset(self.get_queryset())
 
         if filter.is_valid():
-            # Access form data directly from the 'filter' instance
             if filter.cleaned_data['title_text']:
                 klings = klings.filter(title_text__icontains=filter.cleaned_data['title_text'])
             if filter.cleaned_data['kling_category']:
@@ -112,7 +109,6 @@ class Home(FilterView):
         context = self.get_context_data(filter=filter, klings=klings)
         return self.render_to_response(context)
 
-    
 def about(request):
     return render(request, 'about.html')
 
@@ -123,12 +119,15 @@ class KlingDetailview(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        Kling = self.get_object()
-        context['comments'] = KlingComment.objects.filter(kling=Kling)
+        kling = self.get_object()
+        current_category = kling.kling_category
+        related_posts = Kling.objects.filter(kling_category=current_category).exclude(pk=kling.pk).order_by('-created_on')[:3]
+        context['comments'] = KlingComment.objects.filter(kling=kling)
         context['comment_form'] = KlingCommentForm
         context['reply_form'] = CommentReplyForm() 
+        context['related_posts'] = related_posts
         return context
-
+    
 class KlingCommentView(View):
     def post(self, request, pk):
         kling = get_object_or_404(Kling, pk=pk)
@@ -155,7 +154,6 @@ class CommentReplyView(View):
             return redirect('post', pk=comment.kling.pk)
         else:
             return HttpResponse("Form validation failed", status=400) 
-
 
 def kling_list(request):
     klings = Kling.objects.all() 
