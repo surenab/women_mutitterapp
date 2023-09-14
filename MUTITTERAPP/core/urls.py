@@ -6,7 +6,7 @@ from django.conf import settings
 
 urlpatterns = [
     path("", Home.as_view(), name="home"),
-    path("create-kling/", CreateKling.as_view(), name="create_kling"),
+    path("create-kling", CreateKling.as_view(), name="create_kling"),
     path("my-klings-update/<int:pk>", MyKlingUpdate.as_view(), name="my-kling-update"),
     path("my-klings/delete/<int:pk>", MyKlingDelete.as_view(), name="my_kling_delete"),
     path("about/", about, name="about"),

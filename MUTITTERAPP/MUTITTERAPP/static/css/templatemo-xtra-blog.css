@@ -443,6 +443,9 @@ figure { margin: 0; }
 figcaption { line-height: 1.4; margin-top: 20px }
 
 .tm-post-full { max-width: 600px; }
+.img-fluid-about{
+    width: 700px;
+}
 
 .tm-post-sidebar {
     margin-left: auto;
