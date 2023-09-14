@@ -138,6 +138,7 @@ class KlingCommentView(View):
             comment.owner = self.request.user
             comment.kling = kling
             comment.save()
+            kling.save()
             return redirect('post', pk=kling.pk)
         else:
             return self.render_to_response(self.get_context_data(form=form))

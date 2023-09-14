@@ -14,11 +14,6 @@
     <script src="{% static 'js/script.js' %}"></script>
 </head>
 <body>
-    <div class="messages">
-        {% for message in messages %}
-        <div class = "alert-{{message.tags}}"> {{message}}</div>
-        {% endfor %}
-    </div>
 	<header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <div class="user-info">
@@ -92,7 +87,7 @@
         <main class="tm-main">
             <div class = "login-logout">
                 {% if request.user.is_authenticated %}
-                <p>User logged in by {{ request.user }} user</p></li>
+                <p> <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user.username }}" class="profile-picture">
                 <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
                 {% else %}
                 <a href="{% url 'login' %}">Log In</a></li>
