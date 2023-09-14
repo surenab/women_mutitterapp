@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Kling,KlingComment
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView,View,DetailView
-from .forms import KlingForm, MessageForm,KlingCommentForm, KlingReplyForm
+from .forms import KlingForm, MessageForm,KlingCommentForm, UserProfileForm, SubscriberForm, CommentReplyForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,7 +13,6 @@ from django.db.models.functions import Length
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from .forms import UserProfileForm, SubscriberForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -35,10 +34,8 @@ class CreateKling(CreateView):
         return super().form_valid(form)
 
 def image_view(request):
- 
     if request.method == 'POST':
         form = KlingForm(request.POST, request.FILES)
- 
         if form.is_valid():
             form.save()
             return redirect('create_kling')
@@ -98,7 +95,7 @@ class Home(FilterView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filter'] = KlingFilter()  # Create an instance of KlingFilter without data
+        context['filter'] = KlingFilter()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -106,7 +103,6 @@ class Home(FilterView):
         klings = self.filter_queryset(self.get_queryset())
 
         if filter.is_valid():
-            # Access form data directly from the 'filter' instance
             if filter.cleaned_data['title_text']:
                 klings = klings.filter(title_text__icontains=filter.cleaned_data['title_text'])
             if filter.cleaned_data['kling_category']:
@@ -115,12 +111,15 @@ class Home(FilterView):
         context = self.get_context_data(filter=filter, klings=klings)
         return self.render_to_response(context)
 
+<<<<<<< HEAD
     def home_view( request):
         context = {}
         context['form'] = KlingForm()
         return render( request, "homepage.html", context)    
     
     
+=======
+>>>>>>> 2b96af01d3b74cdf50718c91e621df7965964be8
 def about(request):
     return render(request, 'about.html')
 
@@ -131,12 +130,15 @@ class KlingDetailview(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        Kling = self.get_object()
-        context['comments'] = KlingComment.objects.filter(kling=Kling)
+        kling = self.get_object()
+        current_category = kling.kling_category
+        related_posts = Kling.objects.filter(kling_category=current_category).exclude(pk=kling.pk).order_by('-created_on')[:3]
+        context['comments'] = KlingComment.objects.filter(kling=kling)
         context['comment_form'] = KlingCommentForm
-        context['reply_form'] = KlingReplyForm() 
+        context['reply_form'] = CommentReplyForm() 
+        context['related_posts'] = related_posts
         return context
-
+    
 class KlingCommentView(View):
     def post(self, request, pk):
         kling = get_object_or_404(Kling, pk=pk)
@@ -151,6 +153,19 @@ class KlingCommentView(View):
         else:
             return self.render_to_response(self.get_context_data(form=form))
         
+class CommentReplyView(View):
+    def post(self, request, comment_id):
+        comment = get_object_or_404(KlingComment, pk=comment_id)
+        form = CommentReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.author = self.request.user
+            reply.comment = comment
+            reply.save()
+            return redirect('post', pk=comment.kling.pk)
+        else:
+            return HttpResponse("Form validation failed", status=400) 
+
 def kling_list(request):
     klings = Kling.objects.all() 
     paginator = Paginator(klings, per_page=10)
@@ -202,7 +217,6 @@ def view_profile(request):
     user_klings = my_kling_view.get_queryset()
 
     return render(request, 'profile/view_profile.html', {'user_profile': user_profile, 'user_klings': user_klings})
-
 
 @login_required
 def edit_profile(request):

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base_core.html' %}
 {% load static %}
 {% block bodycontent %}  
@@ -88,20 +89,20 @@
                                     <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
                                             class="far fa-trash-alt"></i></a>
                                 </td>
+=======
+    {% extends 'base_core.html' %}
+    {% load static %}
+    {% block bodycontent %}     
+                    <div class="row tm-row">
+                        <div class="col-12">
+                            <hr class="tm-hr-primary tm-mb-55">
+                            {% if kling.image %}
+                                <img src="{{ kling.image.url }}" class="tm-mb-40-img"></img>
+>>>>>>> 2b96af01d3b74cdf50718c91e621df7965964be8
                             {% endif %}
-                            <form action = "{% url 'kling-comment' pk=kling.pk %}" method="POST" class="mb-5 tm-comment-form">   
-                            {% csrf_token %}
-                                <input type="hidden" name="Kling_id" value="{{ kling.pk }}">  
-                                <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
-                                <div class="mb-4">
-                                    <textarea class="form-control-comment" name="text" rows="6"></textarea>
-                                </div>
-                                <div class="text-right">
-                                    <button type="submit" class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
-                                </div>                                 
-                            </form>                          
                         </div>
                     </div>
+<<<<<<< HEAD
                 </div>
                 <aside class="col-lg-4 tm-aside-col">
                     <div class="tm-post-sidebar">
@@ -131,3 +132,115 @@
                 </aside>
             </div>
 {% endblock %}
+=======
+                    <div class="row tm-row">
+                        <div class="col-lg-8 tm-post-col">
+                            <div class="tm-post-full">                    
+                                <div class="mb-4">
+                                    <h2 class="pt-2 tm-color-primary tm-post-title">{{ kling.title }}</h2>
+                                    <p class="tm-mb-40">{{ kling.created_on }} by {{ kling.user }}</p>
+                                    <p>{{kling.text}}</p>
+                                    <span class="d-block text-right tm-color-primary">{{ kling.kling_category }}</span>
+                                </div>
+                                <div>
+                                    {% for comment in comments %} 
+                                    <hr class="tm-hr-primary tm-mb-45">
+                                    <div class="tm-comment tm-mb-45">
+                                        <figure class="tm-comment-figure">
+                                            <img src="img/comment-1.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
+                                            <figcaption class="tm-color-primary text-center">{{comment.owner.username}}</figcaption>
+                                        </figure>
+                                        <div>
+                                            <p>
+                                                {{comment.text}}
+                                            </p>
+                                            <div class="d-flex justify-content-between">
+                                                {% if request.user.is_authenticated %} 
+                                                <button class="tm-color-primary reply-link" data-comment-id='{{ comment.id }}'">REPLY</button>
+                                                {% endif %}
+                                                <span class="tm-color-primary">{{comment.created_at}}</span>
+                                            </div>  
+                                        </div>      
+                                    </div>
+                                    <div class = "reply-form-container" id="reply-form-{{ comment.id }}" style="display: none;">
+                                        {% if request.user.is_authenticated %}
+                                        <form action="{% url 'kling-comment-reply' comment.id %}" method="POST" class="reply-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="comment_id" value="{{ comment.id }}"> 
+                                            <div class="mb-4">
+                                                <textarea class="form-control-reply" name="text" rows="6" required></textarea>
+                                            </div>
+                                            <div class="text-right">
+                                                <button type="submit" class="tm-btn-primary-reply">Reply</button>
+                                                <button type="button" class="tm-btn tm-btn-secondary-reply" onclick="cancelReplyForm('{{ comment.id }}')">Cancel</button>
+                                            </div>
+                                        </form>
+                                        {% endif %}
+                                    </div>
+                                    {% for reply in comment.replies.all %}
+                                    <div class="tm-comment-reply tm-mb-45-reply">
+                                        <hr>
+                                        <div class="tm-comment">
+                                            <figure class="tm-comment-figure">
+                                                <img src="img/comment-2.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
+                                                <figcaption class="tm-color-primary text-center">{{ reply.author.username }}</figcaption>    
+                                            </figure>
+                                            <p>
+                                                {{ reply.text }}
+                                            </p>
+                                        </div>                                
+                                        <span class="d-block text-right tm-color-primary">{{ reply.created_at }}</span>
+                                    </div>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% if user_klings %}
+                                        <td>
+                                            <a type="button" class="btn btn-success" href="{% url 'my-kling-update'  kling.id %}"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <a type="button" class="btn btn-danger" href="{% url 'my_kling_delete'  kling.id  %}"><i
+                                                    class="far fa-trash-alt"></i></a>
+                                        </td>
+                                    {% endif %}
+                                    {% if request.user.is_authenticated %}
+                                    <form action="{% url 'kling-comment' pk=kling.pk %}" method="POST" class="mb-5 tm-comment-form">   
+                                        {% csrf_token %}
+                                        <input type="hidden" name="Kling_id" value="{{ kling.pk }}">  
+                                        <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
+                                        <div class="mb-4">
+                                            <textarea class="form-control-comment" name="text" rows="6"></textarea>
+                                        </div>
+                                        <div class="text-right">
+                                            <button type="submit" class="tm-btn tm-btn-primary tm-btn-small">Submit</button>                        
+                                        </div>                                 
+                                    </form>
+                                    {% endif %}                        
+                                </div>
+                            </div>
+                        </div>
+                        <aside class="col-lg-4 tm-aside-col">
+                            <div class="tm-post-sidebar">
+                                <hr class="mb-3 tm-hr-primary">
+                                <h2 class="mb-4 tm-post-title tm-color-primary">Categories</h2>
+                                <ul class="tm-mb-75 pl-5 tm-category-list">
+                                    <li><a href="#" class="tm-color-primary">Visual Designs</a></li>
+                                    <li><a href="#" class="tm-color-primary">Travel Events</a></li>
+                                    <li><a href="#" class="tm-color-primary">Web Development</a></li>
+                                    <li><a href="#" class="tm-color-primary">Video and Audio</a></li>
+                                    <li><a href="#" class="tm-color-primary">Etiam auctor ac arcu</a></li>
+                                    <li><a href="#" class="tm-color-primary">Sed im justo diam</a></li>
+                                </ul>
+                                <hr class="mb-3 tm-hr-primary">
+                                <h2 class="tm-mb-40 tm-post-title tm-color-primary">Related Posts</h2>
+                                {% for kling in related_posts %}
+                                <a href="{% url 'post' kling.pk %}" class="d-block tm-mb-40">
+                                    <figure>
+                                        <img src="{{ kling.image.url }}" alt="Image" class="mb-3 img-fluid">
+                                        <figcaption class="tm-color-primary">{{ kling.title }}</figcaption>
+                                    </figure>
+                                </a>
+                                {% endfor %}
+                            </div>                    
+                        </aside>
+                    </div>
+    {% endblock %}
+>>>>>>> 2b96af01d3b74cdf50718c91e621df7965964be8
