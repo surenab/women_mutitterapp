@@ -7,15 +7,16 @@ User = get_user_model()
 class Kling(models.Model):
     KLING_TYPES = (("1", "Hot"), ("2", "Standard"), ("3", "Relaxing"))
     KLING_CATEGORY = (
-        ("Life and Love", "Life and Love"),
-        ("Travel and Adventure", "Travel and Adventure"),
-        ("Art and Music", "Art and Music"),
-        ("Nature", "Nature"),
-        ("Food and Wellness", "Food and Wellness"),
-        ("Careers", "Careers"),
-        ("Science and Technology", "Science and Technology"),
-        ("Other", "Other"),
+        ("1","Life and Love" ),
+        ("2","Travel and Adventure" ),
+        ("3","Art and Music" ),
+        ("4","Nature" ),
+        ("5","Food and Wellness" ),
+        ("6", "Careers"),
+        ("7","Science and Technology" ),
+        ("8","Other" ),
     )
+    kling_category = models.CharField(choices=KLING_CATEGORY, default="1", max_length=1)
     created_on = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=150)
     text = models.TextField(max_length=2000)

@@ -89,6 +89,8 @@ class Home(FilterView):
     template_name = "homepage.html"
     paginate_by = 6
 
+
+    
     def get_queryset(self):
         queryset = Kling.objects.order_by('-created_on')
         return queryset.annotate(text_length=Length('text'))
@@ -113,6 +115,11 @@ class Home(FilterView):
         context = self.get_context_data(filter=filter, klings=klings)
         return self.render_to_response(context)
 
+    def home_view( request):
+        context = {}
+        context['form'] = KlingForm()
+        return render( request, "homepage.html", context)    
+    
     
 def about(request):
     return render(request, 'about.html')
