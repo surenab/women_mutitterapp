@@ -87,7 +87,11 @@
         <main class="tm-main">
             <div class = "login-logout">
                 {% if request.user.is_authenticated %}
-                <p> <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user.username }}" class="profile-picture">
+                    {% if request.user.profile.profile_picture %}
+                    <p> <img src="{{ request.user.profile.profile_picture.url }}" class="profile-picture"> {{ request.user.first_name }} {{ request.user.last_name }} </p>
+                    {% else %}
+                    <p> <img src="{% static 'img/default_profile_picture.jpg' %}" class="profile-picture"> {{ request.user.first_name }} {{ request.user.last_name }} </p>
+                    {% endif %}
                 <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
                 {% else %}
                 <a href="{% url 'login' %}">Log In</a></li>
