@@ -106,4 +106,9 @@ function toggleReplyForm(commentId) {
         });
     });
 });
-
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("id_image").addEventListener("change", function() {
+        var selectedImageName = this.files[0] ? this.files[0].name : "Select your image";
+        document.querySelector(".custom-file-label").textContent = selectedImageName;
+    });
+});
