@@ -16,18 +16,35 @@ from .models import UserProfile
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
+from django.contrib.auth.views import PasswordChangeView
+from .forms import UserProfileForm, UserPasswordChangeForm
+from django.contrib.messages.views import SuccessMessageMixin
 class Base(LoginRequiredMixin):
     def get_queryset(self):
         queryset = super(Base, self).get_queryset()
         queryset = queryset.filter(user=self.request.user)
         return queryset
+    
+class UserPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    """
+    Change password
+    """
+    form_class = UserPasswordChangeForm
+    template_name = 'profile/change_password.html'
+    success_message = 'Your password changed'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Changing Password'
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('profile')    
 
 class CreateKling(CreateView):
     form_class = KlingForm
     success_url = reverse_lazy("home")
     template_name = "create_kling.html"
-
     def form_valid(self, form):
         form.instance.user = self.request.user
         messages.success(self.request,"Klinged succesfully!")

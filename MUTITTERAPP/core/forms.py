@@ -1,6 +1,7 @@
 from django import forms
 from .models import Kling,KlingComment, CommentReply, UserProfile
 from .models import Message, SubscribedUsers
+from django.contrib.auth.forms import SetPasswordForm
 
 
 class KlingForm(forms.ModelForm):
@@ -65,3 +66,32 @@ class SubscriberForm(forms.ModelForm):
     class Meta:
         model = SubscribedUsers
         fields = ['email']
+
+class UserPasswordChangeForm(SetPasswordForm):
+    """
+    For changing password
+    """
+    old_password = forms.CharField(
+        label="Old Password",
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'autocomplete': 'off'}),
+    )
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get('old_password')
+        user = self.user
+        if user.check_password(old_password):
+            return old_password
+        else:
+            raise forms.ValidationError("The old password is incorrect.")
+
+    def __init__(self, *args, **kwargs):
+        """
+        updating form
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control',
+                'autocomplete': 'off'
+            })        
