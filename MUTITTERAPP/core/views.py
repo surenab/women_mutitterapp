@@ -139,10 +139,15 @@ class KlingDetailview(DetailView):
         kling = self.get_object()
         current_category = kling.kling_category
         related_posts = Kling.objects.filter(kling_category=current_category).exclude(pk=kling.pk).order_by('-created_on')[:3]
+        if related_posts.count() < 3:
+            remaining_count = 3 - related_posts.count()
+            latest_klings = Kling.objects.exclude(pk=kling.pk).order_by('-created_on')[:remaining_count]
+            related_posts = list(related_posts) + list(latest_klings)
+        context['related_posts'] = related_posts
         context['comments'] = KlingComment.objects.filter(kling=kling)
         context['comment_form'] = KlingCommentForm
         context['reply_form'] = CommentReplyForm() 
-        context['related_posts'] = related_posts
+
         return context
     
 class KlingCommentView(View):
