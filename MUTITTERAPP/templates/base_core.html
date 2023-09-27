@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width", initial-scale=1.0">
 	<title>Cackling - Share Your Klings</title>
 	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> 
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -11,13 +11,9 @@
     <link href="{% static 'css/templatemo-xtra-blog.css' %}" rel="stylesheet">
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/templatemo-script.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 </head>
 <body>
-    <div class="messages">
-        {% for message in messages %}
-        <div class = "alert-{{message.tags}}"> {{message}}</div>
-        {% endfor %}
-    </div>
 	<header class="tm-header" id="tm-header">
         <div class="tm-header-wrapper">
             <div class="user-info">
@@ -91,7 +87,7 @@
         <main class="tm-main">
             <div class = "login-logout">
                 {% if request.user.is_authenticated %}
-                <p>User logged in by {{ request.user }} user</p></li>
+                <p> <img src="{{ request.user.profile.profile_picture.url }}" alt="{{ request.user.username }}" class="profile-picture">
                 <a class="login-logout" href="{% url 'logout' %}" id="logoutBtn">Logout</a></li>
                 {% else %}
                 <a href="{% url 'login' %}">Log In</a></li>
